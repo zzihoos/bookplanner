@@ -1,8 +1,10 @@
+
 import React from "react";
 import Header from "../components/Header";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { useNavigate } from "react-router-dom";
+
 
 const Calendar = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const Calendar = () => {
     navigate("./edit");
   };
   return (
+
     <>
     <Header />
     <div
@@ -37,4 +40,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default Calendar
