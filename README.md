@@ -15,7 +15,7 @@
 - Font-awesome
 - Tailwind
 - axios
-- Full Calendar
+- React Calendar
 - ESLint
 - Prettier
 
