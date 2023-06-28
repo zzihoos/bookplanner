@@ -1,73 +1,22 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getTodo } from "../api/axios";
 import Header from "../components/Header";
 import List from "../components/List";
 // import Loading from "../components/Loading";
+import ProgressBar from "../components/ProgreesBar";
 
 const Todo = () => {
-  const initTodoData = [
-    {
-      id: 1,
-      category: "카테고리",
-      title: "책제목",
-      author: "지은이",
-      publisher: "출판사",
-      startday: "2023-06-26",
-      endday: "2023-06-28",
-      memo: "메모",
-      completed: false,
-    },
-    {
-      id: 2,
-      category: "카테고리",
-      title: "책제목",
-      author: "지은이",
-      publisher: "출판사",
-      startday: "2023-06-26",
-      endday: "2023-06-28",
-      memo: "메모",
-      completed: false,
-    },
-    {
-      id: 3,
-      category: "카테고리",
-      title: "책제목",
-      author: "지은이",
-      publisher: "출판사",
-      startday: "2023-06-26",
-      endday: "2023-06-28",
-      memo: "메모",
-      completed: false,
-    },
-    {
-      id: 4,
-      category: "카테고리",
-      title: "책제목",
-      author: "지은이",
-      publisher: "출판사",
-      startday: "2023-06-26",
-      endday: "2023-06-28",
-      memo: "메모",
-      completed: false,
-    },
-    {
-      id: 5,
-      category: "카테고리",
-      title: "책제목",
-      author: "지은이",
-      publisher: "출판사",
-      startday: "2023-06-26",
-      endday: "2023-06-28",
-      memo: "메모",
-      completed: false,
-    },
-  ];
-  const [todoData, setTodoData] = useState(initTodoData);
-  // const [isLoading, setIsLoading] = useState(true);
-  // useEffect(() => {
-  //   getTodo(setTodoData, setIsLoading);
-  // }, []);
+  const [todoData, setTodoData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [level, setLevel] = useState(0);
+
+  useEffect(() => {
+    getTodo(setTodoData);
+  }, []);
+
   return (
     <>
       <Header />
@@ -92,16 +41,17 @@ const Todo = () => {
                 <button>더보기</button>
               </li>
             </ul>
-            <div className="flex justify-between items-center">
-              <div className="text-center text-xl w-1/12">Lv.</div>
-              <div className="w-11/12 bg-zinc-500 text-white text-center">
-                %
-              </div>
-            </div>
+            <ProgressBar
+              todoData={todoData}
+              level={level}
+              setLevel={setLevel}
+            />
             <div className="fixed bottom-0 left-30 z-10">
-              <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
+              <Link to="/add">
+                <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </Link>
             </div>
           </div>
           {/* 할 일 목록 */}
