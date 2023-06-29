@@ -3,15 +3,9 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header style={{ background: "skyBlue", padding: 16 }}>
+    <header className="p-5 bg-sky-300">
       <ul
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          whiteSpace: "nowrap",
-          listStyleType: "none",
-          fontSize: "20px",
-        }}
+        className="flex justify-around list-none text-2xl font-bold"
       >
         <li>
           <Link to="/about">About</Link>

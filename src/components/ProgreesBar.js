@@ -3,34 +3,18 @@ import React, { useEffect, useState } from "react";
 function ProgressBar({ todoData, level, setLevel }) {
   const [completedCount, setCompletedCount] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [restProgress, setRestProgress] = useState(0);
-  const [progressText, setProgressText] = useState("");
 
   useEffect(() => {
     const completedTodos = todoData.filter(item => item.completed);
-    const count = completedTodos.length;
-    setCompletedCount(count);
-    const updatedProgress = count * 10;
+    setCompletedCount(completedTodos.length % 10);
+    const updatedProgress = (completedTodos.length % 10) * 10;
     setProgress(updatedProgress);
-    if (updatedProgress >= 100) {
-      setLevel(prevLevel => prevLevel + 1);
-      progressReset();
-      setRestProgress(updatedProgress - 100);
+    if (updatedProgress == 0 && completedTodos.length > 0) {
+      setLevel(level => level + 1);
+      setCompletedCount(0);
+      setProgress(0);
     }
-    console.log(restProgress);
   }, [todoData]);
-
-  const progressReset = () => {
-    setProgress(0);
-  };
-
-  useEffect(() => {
-    if (progress <= 100) {
-      setProgressText(`${progress}`);
-    } else {
-      setProgressText(`${restProgress}`);
-    }
-  }, [progress, restProgress]);
 
   return (
     <div className="flex justify-between items-center">
@@ -39,11 +23,11 @@ function ProgressBar({ todoData, level, setLevel }) {
         <div
           className="progress h-6 absolute"
           style={{
-            width: `${progress > 100 ? restProgress : progress}%`,
+            width: `${progress > 100 ? progress - 100 : progress}%`,
             background: "black",
           }}
         >
-          <span className="relative z-10 text-center">{progressText}%</span>
+          <span className="relative z-10 text-center">{progress}%</span>
         </div>
       </div>
     </div>

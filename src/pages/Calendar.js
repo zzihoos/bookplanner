@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { useNavigate } from "react-router-dom";
+import FullCalendar from "@fullcalendar/react";
 import axios from "axios";
 import moment from "moment/moment";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
@@ -25,18 +25,14 @@ const Calendar = () => {
     }
   };
 
-  const transformData = (data) => {                                                                                                                                              
-                                                                                                                    
-    
+  const transformData = data => {
     return data.map(event => ({
       title: event.title,
       start: event.start,
-      end: moment(event.end).add(1, 'day').format('YYYY-MM-DD'),
+      end: moment(event.end).add(1, "day").format("YYYY-MM-DD"),
       color: event.color,
-    })
-    );
+    }));
   };
-
 
   const navigate = useNavigate();
 
@@ -54,7 +50,6 @@ const Calendar = () => {
           locale="ko"
           height={"85vh"}
           events={events}
-          
         />
       </div>
     </>
