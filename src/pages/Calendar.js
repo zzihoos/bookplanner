@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { useNavigate } from "react-router-dom";
+import FullCalendar from "@fullcalendar/react";
 import axios from "axios";
 import moment from "moment/moment";
+
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import "../style/Calendar.css";
+
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);

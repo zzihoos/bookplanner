@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
+
 import axios from "axios";
-import { useNavigate } from "react-router";
+
 
 const Add = () => {
+  const [cate, setCate] = useState("");
+  const [startDay, setStartDay] = useState("");
+  const [endDay, setEndDay] = useState("");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [company, setCompany] = useState("");
+  const [memo, setMemo] = useState("");
 
 
   const [cate, setCate] = useState("");
@@ -19,7 +27,7 @@ const Add = () => {
 
 
 
-  // const navigate = useNavigate();
+
 
   if (new Date(endDay) < new Date(startDay)) {
     alert("날짜를 다시 입력해 주세요")
@@ -50,6 +58,7 @@ const Add = () => {
       company: item.company,
     }));
   };
+
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -90,9 +99,60 @@ const Add = () => {
       setAuthor(selectBook.author);
     }
   };
+
   return (
     <>
       <Header />
+
+      <form onSubmit={handleSubmit}>
+        <label>Category:</label>
+        <input
+          type="text"
+          value={cate}
+          onChange={e => setCate(e.target.value)}
+        />
+
+        <label>Start Day:</label>
+        <input
+          type="date"
+          value={startDay}
+          onChange={e => setStartDay(e.target.value)}
+        />
+
+        <label>End Day:</label>
+        <input
+          type="date"
+          value={endDay}
+          onChange={e => setEndDay(e.target.value)}
+        />
+
+        <label>Title:</label>
+        <input
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+
+        <label>Author:</label>
+        <input
+          type="text"
+          value={author}
+          onChange={e => setAuthor(e.target.value)}
+        />
+
+        <label>Company:</label>
+        <input
+          type="text"
+          value={company}
+          onChange={e => setCompany(e.target.value)}
+        />
+
+        <label>Memo:</label>
+        <textarea value={memo} onChange={e => setMemo(e.target.value)} />
+
+        <button type="submit">Submit</button>
+      </form>
+
       <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
         <form
           onSubmit={handleSubmit}

@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ListItem = ({ item, todoData, setTodoData }) => {
-  const todoList = item;
-  // console.log("ListItem 랜더링", item);
-
-  // 편집 상태 타이틀 설정 state
-  const [editTitle, setEditTitle] = useState(item.title);
-
-  useEffect(() => {
-    // setEditTitle(item.title);
-  }, []);
-
+  const navigate = useNavigate();
   const handleCompleteChange = _id => {
     let newTodoData = todoData.map(item => {
       if (item.id === _id) {
@@ -21,24 +12,27 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     });
     setTodoData(newTodoData);
   };
+  const handleNavigate = () => {
+    navigate(`/edit/${item.id}`, { state: { ...todoData } });
+  };
   return (
     <>
       <div
         className={`relative p-3 ${item.completed ? "line-through" : "none"}`}
       >
-        {/* defaultChecked : 체크박스에 기본체크 상태 설정 */}
         <input
           className="ml-10 absolute top-7 w-5 h-5"
           type="checkbox"
           defaultChecked={item.completed}
           onChange={() => handleCompleteChange(item.id)}
         />
-        <Link to={`/edit/${item.id}`}>
-          <div className="text-center text-xl bg-neutral-400 rounded cursor-pointer">
-            <span>{item.title}</span>
-            <p>d-day</p>
-          </div>
-        </Link>
+        <div
+          className="text-center text-xl bg-neutral-400 rounded cursor-pointer"
+          onClick={handleNavigate}
+        >
+          <span>{item.title}</span>
+          <p>d-day</p>
+        </div>
       </div>
     </>
   );

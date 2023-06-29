@@ -1,7 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import Header from "../components/Header";
 
 const Edit = () => {
+  const [info, setInfo] = useState("");
+  const params = useParams();
+  const navigate = useNavigate();
+  console.log(params.id);
+  useEffect(() => {
+    // pk : primary key (unique number )
+    // pk 를 axios.get (params.id) 상세호출 한다고 가정하고 작업
+    const detailData = async () => {
+      try {
+        const res = await axios.get("/tododata.json");
+        const result = res.data;
+        setInfo(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    detailData();
+  }, []);
+  console.log(info);
 
   const handleDateChange = e => {
     // setDate(e.target.value);
@@ -11,6 +32,9 @@ const Edit = () => {
   };
   const handleCompletedChange = e => {
     // setCompleted(e.target.value);
+  };
+  const handleCancle = () => {
+    navigate(-1);
   };
   return (
     <>
@@ -22,7 +46,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
-              // value={cate}
+              value={info.category}
               readOnly
             />
           </div>
@@ -31,7 +55,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
-              // value={title}
+              value={info.title}
               readOnly
             />
           </div>
@@ -40,7 +64,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
-              // value={author}
+              value={info.author}
               readOnly
             />
           </div>
@@ -49,7 +73,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
-              // value={publisher}
+              value={info.company}
               readOnly
             />
           </div>
@@ -58,7 +82,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-              // value={date}
+              value={info.date}
               onChange={e => handleDateChange(e)}
             />
           </div>
@@ -67,7 +91,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-              // value={memo}
+              value={info.memo}
               onChange={e => handleMemoChange(e)}
             />
           </div>
@@ -76,7 +100,7 @@ const Edit = () => {
             <input
               type="text"
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-              // value={completed}
+              value={info.completed}
               onChange={e => handleCompletedChange(e)}
             />
           </div>
@@ -87,6 +111,12 @@ const Edit = () => {
           </button>
           <button className="ml-14 px-8 py-3 bg-red-500 text-white rounded-md">
             삭제
+          </button>
+          <button
+            className="ml-14 px-8 py-3 bg-red-500 text-white rounded-md"
+            onClick={handleCancle}
+          >
+            뒤로가기
           </button>
         </div>
       </div>
