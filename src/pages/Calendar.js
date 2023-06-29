@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment/moment";
+import "../style/Calendar.css";
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
@@ -15,9 +16,10 @@ const Calendar = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/data.json");
+      const response = await axios.get("/api/calendar");
       const data = response.data;
       const transformedData = transformData(data);
+      console.log(data);
       setEvents(transformedData);
       // console.log(transformedData);
     } catch (error) {
@@ -25,18 +27,14 @@ const Calendar = () => {
     }
   };
 
-  const transformData = (data) => {                                                                                                                                              
-                                                                                                                    
-    
+  const transformData = data => {
     return data.map(event => ({
       title: event.title,
       start: event.start,
-      end: moment(event.end).add(1, 'day').format('YYYY-MM-DD'),
+      end: moment(event.end).add(1, "day").format("YYYY-MM-DD"),
       color: event.color,
-    })
-    );
+    }));
   };
-
 
   const navigate = useNavigate();
 
@@ -54,7 +52,6 @@ const Calendar = () => {
           locale="ko"
           height={"85vh"}
           events={events}
-          
         />
       </div>
     </>
