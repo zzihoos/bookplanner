@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Book 1",
+    "author": "Author 1",
+    "company": "Company 1",
+    "cate": "Category 1"
+  },
+  {
+    "title": "Book 2",
+    "author": "Author 2",
+    "company": "Company 2",
+    "cate": "Category 2"
+  },
+  {
+    "title": "Book 3",
+    "author": "Author 3",
+    "company": "Company 3",
+    "cate": "Category 3"
+  }
+]
