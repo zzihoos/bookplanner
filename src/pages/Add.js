@@ -13,6 +13,8 @@ const Add = () => {
   const [memo, setMemo] = useState("");
   const [bookmark, setBookmark] = useState("");
   const [finish, setFinish] = useState("");
+  const [del, setDel] = useState("");
+  const [createAt, setCreateAt] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   if (new Date(endDay) < new Date(startDay)) {
@@ -41,15 +43,28 @@ const Add = () => {
       cate: item.cate,
       author: item.author,
       company: item.company,
+      bookmark: item.bookmark,
+      finish: item.finish,
+      del: item.del,
+      createAt: item.createAt,
     }));
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    // Handle the form submission, such as making an API call or performing any desired actions
-    // You can access the values using the state variables: cate, startDay, endDay, title, author, company, memo
-    console.log({ cate, startDay, endDay, title, author, company, memo });
+    console.log({
+      cate,
+      startDay,
+      endDay,
+      title,
+      author,
+      company,
+      memo,
+      bookmark,
+      finish,
+      del,
+      createAt,
+    });
 
     // Reset the form after submission
     setCate("");
@@ -61,6 +76,8 @@ const Add = () => {
     setMemo("");
     setBookmark("");
     setFinish("");
+    setDel("");
+    setCreateAt("");
   };
 
   const handleTitleChange = event => {
@@ -71,6 +88,10 @@ const Add = () => {
       setCate("");
       setAuthor("");
       setCompany("");
+      setBookmark("");
+      setFinish("");
+      setDel("");
+      setCreateAt("");
     }
   };
 
@@ -81,6 +102,10 @@ const Add = () => {
       setCate(selectBook.cate);
       setCompany(selectBook.company);
       setAuthor(selectBook.author);
+      setBookmark(selectBook.bookmark);
+      setFinish(selectBook.finish);
+      setDel(selectBook.del);
+      setCreateAt(selectBook.createAt);
     }
   };
 
@@ -138,15 +163,17 @@ const Add = () => {
           </div>
 
           {title !== "" && searchResults.length > 0 && (
-            <div className="flex item-center justify-center text-center">
-              <ul className="block mb-1 w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow">
+            <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
+              <ul className="block mb-1 w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow overflow-auto">
                 {searchResults.map(book => (
                   <li
                     key={book.title}
                     onClick={() => handleTitleSelect(book.title)}
-                    className="cursor-pointer text-blue-500"
+                    className="flex justify-around cursor-pointer text-blue-500 text-xl py-3"
                   >
-                    {book.title}
+                    <div>{book.title}</div>
+                    <div>{book.author}</div>
+                    <div>{book.company}</div>
                   </li>
                 ))}
               </ul>
@@ -212,6 +239,28 @@ const Add = () => {
               type="hidden"
               value={finish}
               onChange={e => setFinish(e.target.value)}
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+            />
+          </div>
+
+          {/* finish */}
+          <div>
+            <input
+              id="del"
+              type="hidden"
+              value={del}
+              onChange={e => setDel(e.target.value)}
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+            />
+          </div>
+
+          {/* finish */}
+          <div>
+            <input
+              id="createAt"
+              type="hidden"
+              value={createAt}
+              onChange={e => setCreateAt(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>

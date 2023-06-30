@@ -3,9 +3,10 @@ import FullCalendar from "@fullcalendar/react";
 import axios from "axios";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import "../style/Calendar.css";
+
 const Calendar = () => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
@@ -33,6 +34,7 @@ const Calendar = () => {
     }));
   };
   const navigate = useNavigate();
+
   const handleEventClick = eventInfo => {
     const { itodo } = eventInfo.event.extendedProps;
     navigate(`/edit/${itodo}`);
@@ -40,7 +42,7 @@ const Calendar = () => {
   return (
     <>
       <Header />
-      <div style={{ padding: 50, gridTemplateColumns: "3fr 1fr" }}>
+      <div className="w-4/5 m-auto">
         <FullCalendar
           initialView="dayGridMonth"
           plugins={[dayGridPlugin]}
