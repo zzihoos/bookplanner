@@ -2,7 +2,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getTodo } from "../api/axios";
+import { getTodo } from "../api/fetch";
 import Header from "../components/Header";
 import List from "../components/List";
 import ProgressBar from "../components/ProgreesBar";

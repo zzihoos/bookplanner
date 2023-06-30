@@ -3,17 +3,7 @@ import Header from "../components/Header";
 
 import axios from "axios";
 
-
 const Add = () => {
-  const [cate, setCate] = useState("");
-  const [startDay, setStartDay] = useState("");
-  const [endDay, setEndDay] = useState("");
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [company, setCompany] = useState("");
-  const [memo, setMemo] = useState("");
-
-
   const [cate, setCate] = useState("");
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
@@ -23,16 +13,13 @@ const Add = () => {
   const [memo, setMemo] = useState("");
   const [bookmark, setBookmark] = useState("");
   const [finish, setFinish] = useState("");
+  const [del, setDel] = useState("");
+  const [createAt, setCreateAt] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-
-
-
-
   if (new Date(endDay) < new Date(startDay)) {
-    alert("날짜를 다시 입력해 주세요")
+    alert("날짜를 다시 입력해 주세요");
     setEndDay("");
-   
   }
 
   useEffect(() => {
@@ -56,16 +43,28 @@ const Add = () => {
       cate: item.cate,
       author: item.author,
       company: item.company,
+      bookmark: item.bookmark,
+      finish: item.finish,
+      del: item.del,
+      createAt: item.createAt,
     }));
   };
 
-
   const handleSubmit = event => {
     event.preventDefault();
-
-    // Handle the form submission, such as making an API call or performing any desired actions
-    // You can access the values using the state variables: cate, startDay, endDay, title, author, company, memo
-    console.log({ cate, startDay, endDay, title, author, company, memo });
+    console.log({
+      cate,
+      startDay,
+      endDay,
+      title,
+      author,
+      company,
+      memo,
+      bookmark,
+      finish,
+      del,
+      createAt,
+    });
 
     // Reset the form after submission
     setCate("");
@@ -77,6 +76,8 @@ const Add = () => {
     setMemo("");
     setBookmark("");
     setFinish("");
+    setDel("");
+    setCreateAt("");
   };
 
   const handleTitleChange = event => {
@@ -87,6 +88,10 @@ const Add = () => {
       setCate("");
       setAuthor("");
       setCompany("");
+      setBookmark("");
+      setFinish("");
+      setDel("");
+      setCreateAt("");
     }
   };
 
@@ -97,61 +102,16 @@ const Add = () => {
       setCate(selectBook.cate);
       setCompany(selectBook.company);
       setAuthor(selectBook.author);
+      setBookmark(selectBook.bookmark);
+      setFinish(selectBook.finish);
+      setDel(selectBook.del);
+      setCreateAt(selectBook.createAt);
     }
   };
 
   return (
     <>
       <Header />
-
-      <form onSubmit={handleSubmit}>
-        <label>Category:</label>
-        <input
-          type="text"
-          value={cate}
-          onChange={e => setCate(e.target.value)}
-        />
-
-        <label>Start Day:</label>
-        <input
-          type="date"
-          value={startDay}
-          onChange={e => setStartDay(e.target.value)}
-        />
-
-        <label>End Day:</label>
-        <input
-          type="date"
-          value={endDay}
-          onChange={e => setEndDay(e.target.value)}
-        />
-
-        <label>Title:</label>
-        <input
-          type="text"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-
-        <label>Author:</label>
-        <input
-          type="text"
-          value={author}
-          onChange={e => setAuthor(e.target.value)}
-        />
-
-        <label>Company:</label>
-        <input
-          type="text"
-          value={company}
-          onChange={e => setCompany(e.target.value)}
-        />
-
-        <label>Memo:</label>
-        <textarea value={memo} onChange={e => setMemo(e.target.value)} />
-
-        <button type="submit">Submit</button>
-      </form>
 
       <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
         <form
@@ -204,15 +164,17 @@ const Add = () => {
           </div>
 
           {title !== "" && searchResults.length > 0 && (
-            <div className="flex item-center justify-center text-center">
-              <ul className="block mb-1 w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow">
+            <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
+              <ul className="block mb-1 w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow overflow-auto">
                 {searchResults.map(book => (
                   <li
                     key={book.title}
                     onClick={() => handleTitleSelect(book.title)}
-                    className="cursor-pointer text-blue-500"
+                    className="flex justify-around cursor-pointer text-blue-500 text-xl py-3"
                   >
-                    {book.title}
+                    <div>{book.title}</div>
+                    <div>{book.author}</div>
+                    <div>{book.company}</div>
                   </li>
                 ))}
               </ul>
@@ -278,6 +240,28 @@ const Add = () => {
               type="hidden"
               value={finish}
               onChange={e => setFinish(e.target.value)}
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+            />
+          </div>
+
+          {/* finish */}
+          <div>
+            <input
+              id="del"
+              type="hidden"
+              value={del}
+              onChange={e => setDel(e.target.value)}
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+            />
+          </div>
+
+          {/* finish */}
+          <div>
+            <input
+              id="createAt"
+              type="hidden"
+              value={createAt}
+              onChange={e => setCreateAt(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
