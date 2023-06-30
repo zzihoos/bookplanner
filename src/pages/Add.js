@@ -112,7 +112,6 @@ const Add = () => {
   return (
     <>
       <Header />
-
       <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
         <form
           onSubmit={handleSubmit}

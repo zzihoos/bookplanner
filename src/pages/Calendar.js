@@ -2,7 +2,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import axios from "axios";
 import moment from "moment/moment";
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
@@ -13,7 +12,6 @@ const Calendar = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     try {
       const response = await axios.get("/api/calendar");
@@ -26,7 +24,6 @@ const Calendar = () => {
       console.log(error);
     }
   };
-
   const transformData = data => {
     return data.map(event => ({
       itodo: event.itodo,
@@ -36,7 +33,6 @@ const Calendar = () => {
       color: event.color,
     }));
   };
-
   const navigate = useNavigate();
 
   const handleEventClick = eventInfo => {
@@ -59,5 +55,4 @@ const Calendar = () => {
     </>
   );
 };
-
 export default Calendar;

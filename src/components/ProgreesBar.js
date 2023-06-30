@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-function ProgressBar({ todoData, level, setLevel }) {
+const ExpProgressBar = ({ todoData, level, setLevel }) => {
   const [completedCount, setCompletedCount] = useState(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const completedTodos = todoData.filter(item => item.completed);
-    setCompletedCount(completedTodos.length % 10);
-    const updatedProgress = (completedTodos.length % 10) * 10;
+    const completedTodos = todoData.icategory?.filter(item => item.del === 1);
+    setCompletedCount(completedTodos?.length % 10);
+    const updatedProgress = (completedTodos?.length % 10) * 10;
     setProgress(updatedProgress);
-    if (updatedProgress == 0 && completedTodos.length > 0) {
+    if (updatedProgress == 0 && completedTodos?.length > 0) {
       setLevel(level => level + 1);
       setCompletedCount(0);
       setProgress(0);
@@ -32,6 +32,8 @@ function ProgressBar({ todoData, level, setLevel }) {
       </div>
     </div>
   );
-}
+};
 
-export default ProgressBar;
+const BookProgressBar = () => {};
+
+export { BookProgressBar, ExpProgressBar };

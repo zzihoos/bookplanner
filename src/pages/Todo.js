@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTodo } from "../api/fetch";
 import Header from "../components/Header";
-import List from "../components/List";
-import ProgressBar from "../components/ProgreesBar";
+import ListItem from "../components/ListItem";
+import { BookProgressBar, ExpProgressBar } from "../components/ProgreesBar";
 
 const Todo = () => {
   const [todoData, setTodoData] = useState([]);
@@ -38,20 +38,31 @@ const Todo = () => {
                 <button>더보기</button>
               </li>
             </ul>
-            <ProgressBar
+            <ExpProgressBar
               todoData={todoData}
               level={level}
               setLevel={setLevel}
             />
             <div className="fixed bottom-0 left-30 z-10">
-              <Link to="/add" todoData={todoData} setTodoData={setTodoData}>
+              <Link to="/add">
                 <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </Link>
             </div>
           </div>
-          <List todoData={todoData} setTodoData={setTodoData} />
+          <div>
+            {todoData.icategory?.map(item => (
+              // key 는 반복문에서 unique 해야한다.
+              <ListItem
+                key={item.itodo}
+                item={item}
+                todoData={todoData}
+                setTodoData={setTodoData}
+              />
+            ))}
+            <BookProgressBar />
+          </div>
         </div>
       </div>
     </>
