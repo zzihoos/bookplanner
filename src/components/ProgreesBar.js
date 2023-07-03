@@ -21,7 +21,7 @@ const ExpProgressBar = ({ todoData, level, setLevel }) => {
       <div className="text-center text-xl w-1/12">Lv.{level}</div>
       <div className="w-11/12 h-6 bg-zinc-500 text-white text-center relative">
         <div
-          className="progress h-6 absolute"
+          className="h-6 absolute"
           style={{
             width: `${progress > 100 ? progress - 100 : progress}%`,
             background: "black",
@@ -34,6 +34,31 @@ const ExpProgressBar = ({ todoData, level, setLevel }) => {
   );
 };
 
-const BookProgressBar = () => {};
+const BookProgressBar = ({ item }) => {
+  // 책갈피 기능 = '북마크값 나누기 전체페이지값 곱하기 100'
+  const [bookProgress, setBookProgress] = useState();
+  useEffect(() => {
+    const bookmark = (item.bookmark / 444) * 100;
+    setBookProgress(bookmark);
+  }, []);
+  // 실제로 쓸 데이터
+  // useEffect(() => {
+  //   if (전체페이지 !== null) {
+  //     const bookmark = (item.bookmark / 전체페이지) * 100;
+  //     setBookProgress(bookmark);
+  //   } else {
+  //     return null;
+  //   }
+  // }, []);
+
+  return (
+    <div
+      className="absolute left-0 top-0 bg-red-100 h-14 p-3 rounded"
+      style={{ width: `${bookProgress}%` }}
+    >
+      {item.bookmark}
+    </div>
+  );
+};
 
 export { BookProgressBar, ExpProgressBar };

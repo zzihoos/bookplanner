@@ -1,7 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { getBest } from "../api/fetch";
 import Header from "../components/Header";
+import "../scss/bestseller.scss";
 
 const BestSeller = () => {
   const [bookData, setBookData] = useState([]);
@@ -93,16 +94,11 @@ const BestSeller = () => {
   // };
   // console.log(data.object.item);
   useEffect(() => {
-    const getBest = async () => {
-      try {
-        const res = await axios.get("/api/aladinbestseller");
-        const result = res.data;
-        setBookData(result);
-      } catch (error) {
-        console.log(error);
-      }
+    const fetchData = async () => {
+      const result = await getBest();
+      setBookData(result);
     };
-    getBest();
+    fetchData();
   }, []);
   const handleBestAdd = item => {
     setSelectedItem(item);
@@ -113,7 +109,7 @@ const BestSeller = () => {
       <Header />
       <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded mt-5 ">
         <h2 className="text-2xl text-center p-10">베스트 셀러 추천</h2>
-        <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5">
+        <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
           {bookData.item?.map((item, index) => {
             if (index < 6) {
               return (
@@ -122,18 +118,24 @@ const BestSeller = () => {
                   key={index}
                 >
                   <div
-                    className="w-40 h-64"
+                    className="w-2/4 h-64 imgbox"
                     onClick={item => handleBestAdd(item)}
                   >
                     <img src={item.cover} alt="" className="w-full h-full" />
                   </div>
-                  <ul className="flex flex-col w-80 p-5 justify-center items-center">
-                    <li className="py-2 text-xl font-bold line-clamp-1 leading-10">{item.title}</li>
-                    <li className="py-2 text-[#626262]">{item.categoryName}</li>
-                    <li className="py-2 text-[#626262]">
-                      {item.author} / {item.publisher} /{item.pubDate}
+                  <ul className="flex flex-col p-5 justify-center items-center">
+                    <li className="py-2 text-xl font-bold line-clamp-1 leading-10">
+                      {item.title}
                     </li>
-                    <li className="py-2 text-[#626262]">{item.description}</li>
+                    <li className="py-2 text-[#626262] line-clamp-1 leading-8">
+                      {item.categoryName}
+                    </li>
+                    <li className="py-2 text-[#626262]">
+                      {item.author} / {item.publisher} / {item.pubDate}
+                    </li>
+                    <li className="py-2 text-[#626262] line-clamp-3 leading-8">
+                      {item.description || ""}
+                    </li>
                   </ul>
                 </div>
               );

@@ -5,15 +5,43 @@ import { Link } from "react-router-dom";
 import { getTodo } from "../api/fetch";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
-import { BookProgressBar, ExpProgressBar } from "../components/ProgreesBar";
+import { ExpProgressBar } from "../components/ProgreesBar";
 
 const Todo = () => {
   const [todoData, setTodoData] = useState([]);
   const [level, setLevel] = useState(0);
 
+  // const dummy = {
+  //   level: 1,
+  //   icategory: [
+  //     {
+  //       cate_name: "기술과학",
+  //       itodo: 13,
+  //       title: "Scenic Route, The",
+  //       bookmark: 25,
+  //       del: 0,
+  //       finish: "미완료",
+  //       start: "2023-10-01",
+  //       end: "2023-10-05",
+  //       color: "#53B0AB",
+  //       isbn: "8278923705078",
+  //     },
+  //   ],
+  // };
+
   useEffect(() => {
-    getTodo(setTodoData);
+    const fetchData = async () => {
+      const result = await getTodo();
+      setTodoData(result);
+    };
+    fetchData();
   }, []);
+
+  const handleTotal = () => {};
+
+  const handleFinish = () => {};
+
+  const handleNotFinish = () => {};
 
   return (
     <>
@@ -26,13 +54,13 @@ const Todo = () => {
             </h1>
             <ul className="flex justify-between mb-5">
               <li>
-                <button>전체</button>
+                <button onClick={handleTotal}>전체</button>
               </li>
               <li>
-                <button>완료</button>
+                <button onClick={handleFinish}>완료</button>
               </li>
               <li>
-                <button>미완료</button>
+                <button onClick={handleNotFinish}>미완료</button>
               </li>
               <li>
                 <button>더보기</button>
@@ -61,7 +89,6 @@ const Todo = () => {
                 setTodoData={setTodoData}
               />
             ))}
-            <BookProgressBar />
           </div>
         </div>
       </div>
