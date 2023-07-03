@@ -109,9 +109,9 @@ const BestSeller = () => {
     navigate("/add");
   };
   return (
-    <div>
+    <div className="bg-gray-100">
       <Header />
-      <div className="flex flex-col justify-center w-4/5 py-5 m-auto border rounded">
+      <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded mt-5 ">
         <h2 className="text-2xl text-center p-10">베스트 셀러 추천</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5">
           {bookData.item?.map((item, index) => {

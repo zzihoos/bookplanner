@@ -18,8 +18,8 @@ const Todo = () => {
   return (
     <>
       <Header />
-      <div className="flex items-start justify-center mt-5 w-full">
-        <div className="w-4/5 p-6 bg-white rounded-[8px] shadow relative">
+      <div className="flex items-start justify-center w-full bg-gray-100">
+        <div className="mt-5 w-4/5 p-6 bg-white rounded-[8px] shadow relative">
           <div className="mb-8">
             <h1 className="text-center mb-5 w-full text-2xl font-bold text-purple-300">
               Todo-List
