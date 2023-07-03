@@ -5,21 +5,23 @@ import axios from "axios";
 
 const Add = () => {
   const [cate, setCate] = useState("");
-  const [startDay, setStartDay] = useState("");
-  const [endDay, setEndDay] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [company, setCompany] = useState("");
   const [memo, setMemo] = useState("");
-  const [bookmark, setBookmark] = useState("");
-  const [finish, setFinish] = useState("");
-  const [del, setDel] = useState("");
-  const [createAt, setCreateAt] = useState("");
+  const [bookmark, setBookmark] = useState(0);
+  const [finish, setFinish] = useState(0);
+  const [del, setDel] = useState(0);
+  const [isbn, setIsbn] = useState("");
+  const [total, setTotal] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(true);
 
-  if (new Date(endDay) < new Date(startDay)) {
+  if (new Date(end) < new Date(start)) {
     alert("날짜를 다시 입력해 주세요");
-    setEndDay("");
+    setEnd("");
   }
 
   useEffect(() => {
@@ -38,24 +40,22 @@ const Add = () => {
   };
 
   const transformData = data => {
-    return data.map(item => ({
+    return data.docs.map(item => ({
       title: item.title,
       cate: item.cate,
       author: item.author,
       company: item.company,
-      bookmark: item.bookmark,
-      finish: item.finish,
-      del: item.del,
-      createAt: item.createAt,
+      total: item.total,
+      isbn: item.isbn,
     }));
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     console.log({
       cate,
-      startDay,
-      endDay,
+      start,
+      end,
       title,
       author,
       company,
@@ -63,13 +63,35 @@ const Add = () => {
       bookmark,
       finish,
       del,
-      createAt,
+      isbn,
+      total,
     });
 
-    // Reset the form after submission
+    const formData = {
+      cate,
+      start,
+      end,
+      title,
+      author,
+      company,
+      memo,
+      bookmark,
+      finish,
+      del,
+      isbn,
+      total,
+    };
+
+    try {
+      const res = await axios.post("/api/plan/Todolist", formData);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+
     setCate("");
-    setStartDay("");
-    setEndDay("");
+    setStart("");
+    setEnd("");
     setTitle("");
     setAuthor("");
     setCompany("");
@@ -77,7 +99,6 @@ const Add = () => {
     setBookmark("");
     setFinish("");
     setDel("");
-    setCreateAt("");
   };
 
   const handleTitleChange = event => {
@@ -88,10 +109,10 @@ const Add = () => {
       setCate("");
       setAuthor("");
       setCompany("");
-      setBookmark("");
-      setFinish("");
-      setDel("");
-      setCreateAt("");
+      setBookmark(0);
+      setFinish(0);
+      setDel(0);
+      setShowSearchResults(true);
     }
   };
 
@@ -102,20 +123,26 @@ const Add = () => {
       setCate(selectBook.cate);
       setCompany(selectBook.company);
       setAuthor(selectBook.author);
-      setBookmark(selectBook.bookmark);
-      setFinish(selectBook.finish);
-      setDel(selectBook.del);
-      setCreateAt(selectBook.createAt);
+      setBookmark(selectBook.bookmark || 0);
+      setFinish(selectBook.finish || 0);
+      setDel(selectBook.del || 0);
+      setIsbn(selectBook.isbn);
+      setTotal(selectBook.total);
+    }
+    setShowSearchResults(false);
+  };
+  const handleTitleInputFocus = () => {
+    if (title !== "" && searchResults.length > 0) {
+      setShowSearchResults(true);
     }
   };
-
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
+      <div className="flex flex-col items-center justify-center w-full mb-2 px-4 text-gray-600 bg-gray-100 border rounded">
         <form
           onSubmit={handleSubmit}
-          className="w-3/5 border bg-white mt-5 rounded"
+          className="w-3/5 border bg-white my-5 rounded"
         >
           <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
           <div className="flex items-center justify-center text-center py-5">
@@ -132,10 +159,10 @@ const Add = () => {
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">시작일:</label>
             <input
-              id="startDay"
+              id="start"
               type="date"
-              value={startDay}
-              onChange={e => setStartDay(e.target.value)}
+              value={start}
+              onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
@@ -143,10 +170,10 @@ const Add = () => {
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">종료일:</label>
             <input
-              id="endDay"
+              id="end"
               type="date"
-              value={endDay}
-              onChange={e => setEndDay(e.target.value)}
+              value={end}
+              onChange={e => setEnd(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
@@ -158,22 +185,24 @@ const Add = () => {
               type="text"
               value={title}
               onChange={handleTitleChange}
+              onFocus={handleTitleInputFocus}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
 
-          {title !== "" && searchResults.length > 0 && (
+          {title !== "" && searchResults.length > 0 && showSearchResults && (
             <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
-              <ul className="block mb-1 w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow overflow-auto">
+              <ul className="block mb-1 w-1/2 ml-10 text-gray-500 border rounded shadow overflow-auto">
                 {searchResults.map(book => (
                   <li
                     key={book.title}
                     onClick={() => handleTitleSelect(book.title)}
-                    className="flex justify-around cursor-pointer text-blue-500 text-xl py-3"
+                    className="border-4 cursor-pointer text-black text-base py-3"
                   >
-                    <div>{book.title}</div>
-                    <div>{book.author}</div>
-                    <div>{book.company}</div>
+                    <div>
+                      제목: {book.title} <br />
+                      출판사: {book.company}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -254,16 +283,6 @@ const Add = () => {
             />
           </div>
 
-          {/* finish */}
-          <div>
-            <input
-              id="createAt"
-              type="hidden"
-              value={createAt}
-              onChange={e => setCreateAt(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
         </form>
       </div>
     </>
