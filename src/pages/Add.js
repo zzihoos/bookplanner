@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 const Add = () => {
@@ -16,6 +17,7 @@ const Add = () => {
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
   const [total, setTotal] = useState("");
+  const [debouncedTitle, setDebouncedTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(true);
 
@@ -25,22 +27,38 @@ const Add = () => {
   }
 
   useEffect(() => {
+    const delay = 500; // 디바운싱 대기 시간 (밀리초)
+
+    const timeoutId = setTimeout(() => {
+      setDebouncedTitle(title); // 입력된 title 값을 debouncedTitle로 업데이트
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId); // 이전 타임아웃 제거
+    };
+  }, [title]); // title 값이 변경될 때마다 타임아웃 재설정
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [debouncedTitle]);
+
 
   const fetchData = async () => {
+    // console.log(debouncedTitle);
     try {
-      const res = await axios.get("/adddata.json");
+      const res = await axios.get(`/api/plan/search?str=${debouncedTitle}`);
       const data = res.data;
+      // console.log(data);
       const transformedData = transformData(data);
+      console.log(transformedData);
       setSearchResults(transformedData);
     } catch (error) {
       console.log(error);
     }
   };
-
+  //
   const transformData = data => {
-    return data.docs.map(item => ({
+    return data.map(item => ({
       title: item.title,
       cate: item.cate,
       author: item.author,
@@ -88,7 +106,7 @@ const Add = () => {
     } catch (error) {
       console.log(error);
     }
-
+    setShowSearchResults(true);
     setCate("");
     setStart("");
     setEnd("");
@@ -113,6 +131,7 @@ const Add = () => {
       setFinish(0);
       setDel(0);
       setShowSearchResults(true);
+      setSearchResults([]);
     }
   };
 
@@ -131,11 +150,7 @@ const Add = () => {
     }
     setShowSearchResults(false);
   };
-  const handleTitleInputFocus = () => {
-    if (title !== "" && searchResults.length > 0) {
-      setShowSearchResults(true);
-    }
-  };
+
   return (
     <>
       <Header />
@@ -180,24 +195,25 @@ const Add = () => {
 
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">책제목:</label>
+
             <input
               id="title"
               type="text"
               value={title}
               onChange={handleTitleChange}
-              onFocus={handleTitleInputFocus}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute left-[65.5%]" />
           </div>
 
           {title !== "" && searchResults.length > 0 && showSearchResults && (
             <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
               <ul className="block mb-1 w-1/2 ml-10 text-gray-500 border rounded shadow overflow-auto">
-                {searchResults.map(book => (
+                {searchResults.map((book, isbn) => (
                   <li
-                    key={book.title}
+                    key={book.title + isbn}
                     onClick={() => handleTitleSelect(book.title)}
-                    className="border-4 cursor-pointer text-black text-base py-3"
+                    className="border-2 bg-white cursor-pointer text-black text-base py-3"
                   >
                     <div>
                       제목: {book.title} <br />
@@ -282,7 +298,6 @@ const Add = () => {
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
-
         </form>
       </div>
     </>

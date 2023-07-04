@@ -14,7 +14,7 @@ const Calendar = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await axios.get("/api/calendar");
+      const response = await axios.get("");
       const data = response.data;
       const transformedData = transformData(data);
       // console.log(data);
@@ -43,13 +43,13 @@ const Calendar = () => {
     <div className="bg-gray-100">
       <Header />
       
-      <div className="bg-white mt-5 w-4/5 m-auto p-5 border rounded">
+      <div className="bg-white my-5 w-4/5 m-auto p-5 border rounded">
         <FullCalendar
           initialView="dayGridMonth"
           plugins={[dayGridPlugin]}
           eventClick={handleEventClick}
           locale="ko"
-          height={"85vh"}
+          height={"75vh"}
           events={events}
         />
         </div>
