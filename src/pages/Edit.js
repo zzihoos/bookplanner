@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { deleteTodo, getEdit } from "../api/fetch";
+import { deleteTodo, getEdit, postEdit } from "../api/fetch";
 import Header from "../components/Header";
 import "../scss/edit.scss";
 
@@ -14,38 +14,31 @@ const Edit = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // const dummy = {
-  //   itodo: 13,
-  //   createdTodo: "2023-06-28",
-  //   catename: "기술과학",
-  //   title: "Scenic Route, The",
-  //   writer: "Cureton",
-  //   start: "2023-10-01",
-  //   finish: "2023-10-05",
-  //   memo: "nec euismod scelerisque",
-  //   finishYn: "미완료",
-  // };
+  const editListData = async () => {
+    const result = await getEdit(params.id);
+    setInfo(result);
+    setStartDay(result.start);
+    setEndDay(result.end);
+    setMemo(result.memo);
+    setFinish(result.finish);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getEdit(params.id);
-      setInfo(result);
-      setStartDay(result.start);
-      setEndDay(result.finish);
-      setMemo(result.memo);
-      setFinish(result.finishYn);
-    };
-    fetchData();
-  }, [params.id]);
+    editListData();
+  }, []);
 
   const handleDelete = _id => {
-    // 모달창으로 교체
-    alert("진짜 삭제하시겠습니까?");
-    deleteTodo(_id);
-    navigate("/todo");
+    // 모달창
+    if (params.id == _id) {
+      deleteTodo(_id);
+      navigate("/todo");
+      console.log("삭제했어요");
+    }
   };
 
   const handleSave = e => {
+    e.preventDefault();
+
     if (e.target.name === "start") {
       setStartDay(e.target.value);
     } else if (e.target.name === "end") {
@@ -55,6 +48,17 @@ const Edit = () => {
     } else if (e.target.name === "finish") {
       setFinish(e.target.value);
     }
+
+    const updatedTodo = {
+      start: startDay,
+      end: endDay,
+      memo: memo,
+      finish: finish,
+    };
+    setInfo(updatedTodo);
+
+    // 데이터 전송기능 추가해야함
+    postEdit(params.id, startDay, endDay, memo, finish);
     setIsEdit(false);
   };
 
@@ -86,7 +90,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.createdTodo}
+                value={info.createdTodo || ""}
                 readOnly
               />
             </div>
@@ -95,7 +99,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.catename}
+                value={info.catename || ""}
                 readOnly
               />
             </div>
@@ -104,7 +108,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.title}
+                value={info.title || ""}
                 readOnly
               />
             </div>
@@ -113,7 +117,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.writer}
+                value={info.writer || ""}
                 readOnly
               />
             </div>
@@ -122,7 +126,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={"출판사내놔"}
+                value={"출판사내놔" || ""}
                 readOnly
               />
             </div>
@@ -133,14 +137,14 @@ const Edit = () => {
                   type="text"
                   className="w-1/4 px-3 py-2 ml-10 border rounded shadow text-center date"
                   name="start"
-                  value={startDay}
+                  value={startDay || ""}
                   onChange={e => handleStartChange(e)}
                 />
                 <input
                   type="text"
                   className="w-1/4 px-3 py-2 ml-10 border rounded shadow text-center date"
                   name="end"
-                  value={endDay}
+                  value={endDay || ""}
                   onChange={e => handleEndChange(e)}
                 />
               </div>
@@ -151,7 +155,7 @@ const Edit = () => {
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow text-center"
                 name="memo"
-                defaultValue={memo}
+                value={memo || ""}
                 onChange={e => handleMemoChange(e)}
               />
             </div>
@@ -161,13 +165,22 @@ const Edit = () => {
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow text-center"
                 name="finish"
-                defaultValue={finish}
+                value={finish || ""}
                 onChange={e => handleCompletedChange(e)}
+              />
+            </div>
+            <div className="flex item-center justify-center text-center pb-5">
+              <input
+                type="hidden"
+                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
+                value={info.itodo || ""}
+                readOnly
               />
             </div>
           </form>
           <div className="flex justify-center gap-10 p-7">
             <button
+              type="submit"
               className="px-8 py-3 bg-green-400 text-white rounded-md"
               onClick={e => handleSave(e)}
             >
@@ -194,7 +207,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.createdTodo}
+                value={info.createdTodo || ""}
                 readOnly
               />
             </div>
@@ -203,7 +216,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.catename}
+                value={info.catename || ""}
                 readOnly
               />
             </div>
@@ -212,7 +225,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.title}
+                value={info.title || ""}
                 readOnly
               />
             </div>
@@ -221,7 +234,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.writer}
+                value={info.writer || ""}
                 readOnly
               />
             </div>
@@ -230,7 +243,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={"출판사내놔"}
+                value={"출판사내놔" || ""}
                 readOnly
               />
             </div>
@@ -240,13 +253,13 @@ const Edit = () => {
                 <input
                   type="text"
                   className="w-1/4 px-3 py-2 text-gray-500 bg-gray-200 border rounded shadow text-center date"
-                  value={startDay}
+                  value={startDay || ""}
                   readOnly
                 />
                 <input
                   type="text"
                   className="w-1/4 px-3 py-2 text-gray-500 bg-gray-200 border rounded shadow text-center date"
-                  value={endDay}
+                  value={endDay || ""}
                   readOnly
                 />
               </div>
@@ -256,7 +269,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={memo}
+                value={memo || ""}
                 readOnly
               />
             </div>
@@ -265,7 +278,15 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={finish}
+                value={finish || ""}
+                readOnly
+              />
+            </div>
+            <div className="flex item-center justify-center text-center pb-5">
+              <input
+                type="hidden"
+                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
+                value={info.itodo || ""}
                 readOnly
               />
             </div>

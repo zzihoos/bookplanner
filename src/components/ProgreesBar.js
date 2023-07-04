@@ -38,7 +38,7 @@ const BookProgressBar = ({ item }) => {
   // 책갈피 기능 = '북마크값 나누기 전체페이지값 곱하기 100'
   const [bookProgress, setBookProgress] = useState();
   useEffect(() => {
-    const bookmark = (item.bookmark / 444) * 100;
+    const bookmark = (item.bookmark / 100) * 100;
     setBookProgress(bookmark);
   }, []);
   // 실제로 쓸 데이터
@@ -53,10 +53,9 @@ const BookProgressBar = ({ item }) => {
 
   return (
     <div
-      className="absolute left-0 top-0 bg-red-100 h-14 p-3 rounded"
+      className="absolute left-0 bottom-0 bg-black/30 h-4 text-sm rounded"
       style={{ width: `${bookProgress}%` }}
     >
-      {item.bookmark}
     </div>
   );
 };

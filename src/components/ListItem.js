@@ -4,6 +4,7 @@ import { BookProgressBar } from "./ProgreesBar";
 
 const ListItem = ({ item, todoData, setTodoData }) => {
   const navigate = useNavigate();
+
   const handleCompleteChange = _itodo => {
     let newTodoData = todoData.icategory?.map(item => {
       if (item.itodo === _itodo) {
@@ -13,6 +14,7 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     });
     setTodoData({ ...todoData, icategory: newTodoData });
   };
+
   const handleNavigate = () => {
     navigate(`/edit/${item.itodo}`);
   };
@@ -22,25 +24,32 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    return <p className="relative z-10">{`${day}일 남았습니다.`}</p>;
+    return (
+      <p className="relative z-10">
+        <span className="text-red-[#ff4545]">{`${day}일`}</span> 남았습니다.
+      </p>
+    );
   };
 
   return (
     <>
-      <div className={`relative p-3 ${item.del ? "hidden" : "block"}`}>
+      <div
+        className={`relative p-3 w-4/5 m-auto ${item.del ? "hidden" : "block"}`}
+      >
         <input
-          className="ml-10 absolute top-5 w-10 h-10 z-30"
+          className="ml-9 absolute top-7 w-8 h-8 z-30"
           type="checkbox"
           defaultChecked={item.del === 1}
           onChange={() => handleCompleteChange(item.itodo)}
         />
         <div
-          className="text-center text-xl bg-neutral-400 rounded cursor-pointer relative"
+          className={`text-center text-xl rounded cursor-pointer relative overflow-hidden`}
+          style={{ background: `${item.color}` }}
           onClick={handleNavigate}
         >
           <span className="z-20 relative">{item.title}</span>
           {getDDay(item)}
-        <BookProgressBar item={item} />
+          <BookProgressBar item={item} />
         </div>
       </div>
     </>
