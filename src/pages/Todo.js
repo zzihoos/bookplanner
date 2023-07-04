@@ -8,40 +8,74 @@ import ListItem from "../components/ListItem";
 import { ExpProgressBar } from "../components/ProgreesBar";
 
 const Todo = () => {
-  const [todoData, setTodoData] = useState([]);
+  const [todoData, setTodoData] = useState({});
   const [level, setLevel] = useState(0);
-
-  // const dummy = {
-  //   level: 1,
-  //   icategory: [
-  //     {
-  //       cate_name: "기술과학",
-  //       itodo: 13,
-  //       title: "Scenic Route, The",
-  //       bookmark: 25,
-  //       del: 0,
-  //       finish: "미완료",
-  //       start: "2023-10-01",
-  //       end: "2023-10-05",
-  //       color: "#53B0AB",
-  //       isbn: "8278923705078",
-  //     },
-  //   ],
-  // };
+  const [completeList, setCompleteList] = useState([]);
+  const [inCompleteList, setInCompleteList] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getTodo();
-      setTodoData(result);
-    };
-    fetchData();
+    todoDataList();
   }, []);
+
+  const todoDataList = async () => {
+    const result = await getTodo();
+    setTodoData(result);
+    setLevel(result.level);
+  };
 
   const handleTotal = () => {};
 
-  const handleFinish = () => {};
+  const handleFinish = () => {
+    // const updatedIcategory = todoData.icategory?.filter(item => {
+    //   if (item.del === 1) {
+    //     document.querySelectorAll(".hidden").forEach(item => {
+    //       item.classList.replace("hidden", "block");
+    //     });
+    //     return item;
+    //   }
+    // });
+    // setTodoData(prevTodoData => ({
+    //   ...prevTodoData,
+    //   icategory: updatedIcategory,
+    // }));
+    // const updatedTodoList = todoList.map(item => {
+    //   if (item.del === 1) {
+    //     return {
+    //       ...item,
+    //       hidden: false
+    //     };
+    //   } else {
+    //     return item;
+    //   }
+    // });
+    // setCompleteList(updatedTodoList);
+    // return completeList;
+  };
 
-  const handleNotFinish = () => {};
+  const handleNotFinish = () => {
+    // const filteredIcategory = todoData.icategory?.filter(
+    //   item => item.del === 0,
+    // );
+    // setTodoData(prevTodoData => ({
+    //   ...prevTodoData,
+    //   icategory: filteredIcategory,
+    // }));
+    // const updatedTodoList = todoList.map(item => {
+    //   if (item.del === 0) {
+    //     return {
+    //       ...item,
+    //       hidden: false
+    //     };
+    //   } else {
+    //     return {
+    //       ...item,
+    //       hidden: true
+    //     };
+    //   }
+    // });
+    // setInCompleteList(updatedTodoList);
+    // return inCompleteList
+  };
 
   return (
     <>
@@ -71,7 +105,7 @@ const Todo = () => {
               level={level}
               setLevel={setLevel}
             />
-            <div className="fixed bottom-0 left-30 z-10">
+            <div className="fixed bottom-0 left-30 z-40">
               <Link to="/add">
                 <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
                   <FontAwesomeIcon icon={faPlus} />
@@ -81,7 +115,6 @@ const Todo = () => {
           </div>
           <div>
             {todoData.icategory?.map(item => (
-              // key 는 반복문에서 unique 해야한다.
               <ListItem
                 key={item.itodo}
                 item={item}
