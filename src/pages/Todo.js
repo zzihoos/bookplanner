@@ -8,10 +8,11 @@ import ListItem from "../components/ListItem";
 import { ExpProgressBar } from "../components/ProgreesBar";
 
 const Todo = () => {
-  const [todoData, setTodoData] = useState({});
+  const [todoData, setTodoData] = useState([]);
   const [level, setLevel] = useState(0);
-  const [completeList, setCompleteList] = useState([]);
-  const [inCompleteList, setInCompleteList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
+  const [showCompleted, setShowCompleted] = useState(true);
+  const [showIncomplete, setShowIncomplete] = useState(true);
 
   useEffect(() => {
     todoDataList();
@@ -19,62 +20,31 @@ const Todo = () => {
 
   const todoDataList = async () => {
     const result = await getTodo();
-    setTodoData(result);
+    setTodoData(result.icategory);
     setLevel(result.level);
+    setTodoList(result.icategory || []);
   };
 
-  const handleTotal = () => {};
-
+  // 카테고리 작업해야함......................................
   const handleFinish = () => {
-    // const updatedIcategory = todoData.icategory?.filter(item => {
-    //   if (item.del === 1) {
-    //     document.querySelectorAll(".hidden").forEach(item => {
-    //       item.classList.replace("hidden", "block");
-    //     });
-    //     return item;
-    //   }
-    // });
-    // setTodoData(prevTodoData => ({
-    //   ...prevTodoData,
-    //   icategory: updatedIcategory,
-    // }));
-    // const updatedTodoList = todoList.map(item => {
-    //   if (item.del === 1) {
-    //     return {
-    //       ...item,
-    //       hidden: false
-    //     };
-    //   } else {
-    //     return item;
-    //   }
-    // });
-    // setCompleteList(updatedTodoList);
-    // return completeList;
+    console.log("완실행");
+    const updatedTodoList = todoList.filter(item => {
+      if (item.del === 1) {
+        document.querySelectorAll(".hidden").forEach(item => {
+          item.classList.replace("hidden", "block");
+        });
+        return item;
+      }
+    });
+    setTodoList(updatedTodoList);
   };
 
   const handleNotFinish = () => {
-    // const filteredIcategory = todoData.icategory?.filter(
-    //   item => item.del === 0,
-    // );
-    // setTodoData(prevTodoData => ({
-    //   ...prevTodoData,
-    //   icategory: filteredIcategory,
-    // }));
-    // const updatedTodoList = todoList.map(item => {
-    //   if (item.del === 0) {
-    //     return {
-    //       ...item,
-    //       hidden: false
-    //     };
-    //   } else {
-    //     return {
-    //       ...item,
-    //       hidden: true
-    //     };
-    //   }
-    // });
-    // setInCompleteList(updatedTodoList);
-    // return inCompleteList
+    // setShowIncomplete(!showIncomplete);
+    console.log("미완실행");
+    todoDataList();
+    setShowCompleted(false);
+    setShowIncomplete(true);
   };
 
   return (
@@ -88,24 +58,25 @@ const Todo = () => {
             </h1>
             <ul className="flex justify-between mb-5">
               <li>
-                <button onClick={handleTotal}>전체</button>
+                <button className="px-5 py-3" onClick={handleFinish}>
+                  완료
+                </button>
               </li>
               <li>
-                <button onClick={handleFinish}>완료</button>
+                <button className="px-5 py-3" onClick={handleNotFinish}>
+                  미완료
+                </button>
               </li>
               <li>
-                <button onClick={handleNotFinish}>미완료</button>
-              </li>
-              <li>
-                <button>더보기</button>
+                <button className="px-5 py-3">더보기</button>
               </li>
             </ul>
             <ExpProgressBar
-              todoData={todoData}
+              todoList={todoList}
               level={level}
               setLevel={setLevel}
             />
-            <div className="fixed bottom-0 left-30 z-40">
+            <div className="fixed bottom-0 left-64 z-40">
               <Link to="/add">
                 <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
                   <FontAwesomeIcon icon={faPlus} />
@@ -114,14 +85,32 @@ const Todo = () => {
             </div>
           </div>
           <div>
-            {todoData.icategory?.map(item => (
-              <ListItem
-                key={item.itodo}
-                item={item}
-                todoData={todoData}
-                setTodoData={setTodoData}
-              />
-            ))}
+            {todoList.map(item => {
+              if (
+                (showCompleted && item.del === 1) ||
+                (showIncomplete && item.del === 0)
+              ) {
+                return (
+                  <ListItem
+                    key={item.itodo}
+                    item={item}
+                    todoList={todoList}
+                    setTodoData={setTodoList}
+                  />
+                );
+              }
+              return null;
+            })}
+            {/* {todoData?.map(item => {
+              return (
+                <ListItem
+                  key={item.itodo}
+                  item={item}
+                  todoData={todoData}
+                  setTodoData={setTodoData}
+                />
+              );
+            })} */}
           </div>
         </div>
       </div>

@@ -2,17 +2,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookProgressBar } from "./ProgreesBar";
 
-const ListItem = ({ item, todoData, setTodoData }) => {
+const ListItem = ({ item, todoList, setTodoData }) => {
   const navigate = useNavigate();
 
   const handleCompleteChange = _itodo => {
-    let newTodoData = todoData.icategory?.map(item => {
+    let newTodoData = todoList.map(item => {
       if (item.itodo === _itodo) {
         return { ...item, del: item.del === 0 ? 1 : 0 };
       }
       return item;
     });
-    setTodoData({ ...todoData, icategory: newTodoData });
+    setTodoData(newTodoData);
   };
 
   const handleNavigate = () => {

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import Header from "../components/Header";
 
 const Add = () => {
   const [cate, setCate] = useState("");
@@ -20,6 +21,19 @@ const Add = () => {
   const [debouncedTitle, setDebouncedTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(true);
+
+  // 출판사데이터, 카테고리 문제 상의
+  const location = useLocation();
+  const { state } = location;
+
+  useEffect(() => {
+    if (location.state) {
+      const { title, author, company } = location.state;
+      setTitle(prevTitle => title || prevTitle);
+      setAuthor(prevAuthor => author || prevAuthor);
+      setCompany(prevCompany => company || prevCompany);
+    }
+  }, [state]);
 
   if (new Date(end) < new Date(start)) {
     alert("날짜를 다시 입력해 주세요");
@@ -41,7 +55,6 @@ const Add = () => {
   useEffect(() => {
     fetchData();
   }, [debouncedTitle]);
-
 
   const fetchData = async () => {
     // console.log(debouncedTitle);
@@ -157,7 +170,7 @@ const Add = () => {
       <div className="flex flex-col items-center justify-center w-full mb-2 px-4 text-gray-600 bg-gray-100 border rounded">
         <form
           onSubmit={handleSubmit}
-          className="w-3/5 border bg-white my-5 rounded"
+          className="w-3/5 border bg-white my-5 rounded-[8px]"
         >
           <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
           <div className="flex items-center justify-center text-center py-5">
@@ -203,7 +216,10 @@ const Add = () => {
               onChange={handleTitleChange}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute left-[65.5%]" />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-[65.5%]"
+            />
           </div>
 
           {title !== "" && searchResults.length > 0 && showSearchResults && (

@@ -43,7 +43,7 @@ const Calendar = () => {
     <div className="bg-gray-100">
       <Header />
       
-      <div className="bg-white my-5 w-4/5 m-auto p-5 border rounded">
+      <div className="bg-white my-5 w-4/5 m-auto p-5 border rounded-[8px]">
         <FullCalendar
           initialView="dayGridMonth"
           plugins={[dayGridPlugin]}
