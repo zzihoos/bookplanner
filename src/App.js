@@ -9,6 +9,7 @@ import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Todo from "./pages/Todo";
+import AddBest from "./pages/AddBest";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/add" element={<Add />} />
+        <Route path="/addbest" element={<AddBest />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/about" element={<About />} />

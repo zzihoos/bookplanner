@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
-const Add = () => {
-  const [cate, setCate] = useState("");
+const AddBest = () => {
+  const [cate, setCate] = useState(11);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
@@ -16,66 +14,40 @@ const Add = () => {
   const [finish, setFinish] = useState(0);
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
-  const [page, setPage] = useState("");
-  const [debouncedTitle, setDebouncedTitle] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [showSearchResults, setShowSearchResults] = useState(true);
-  const searchResultsRef = useRef(null);
+  const [total, setTotal] = useState("");
+//   const [searchResults, setSearchResults] = useState([]);
+//   const [showSearchResults, setShowSearchResults] = useState(true);
+//   const searchResultsRef = useRef(null);
 
-  useEffect(() => {
-    const handleOutsideClick = event => {
-      if (
-        searchResultsRef.current &&
-        !searchResultsRef.current.contains(event.target)
-      ) {
-        setShowSearchResults(false);
-      }
-    };
 
-    document.addEventListener("click", handleOutsideClick);
+//   useEffect(() => {
+//     fetchData();
+//   }, [title]);
 
-  }, []);
-
-  useEffect(() => {
-    const delay = 500; // 디바운싱 대기 시간 (밀리초)
-
-    const timeoutId = setTimeout(() => {
-      setDebouncedTitle(title); // 입력된 title 값을 debouncedTitle로 업데이트
-    }, delay);
-
-    return () => {
-      clearTimeout(timeoutId); // 이전 타임아웃 제거
-    };
-  }, [title]); // title 값이 변경될 때마다 타임아웃 재설정
-
-  useEffect(() => {
-    fetchData();
-  }, [debouncedTitle]);
-
-  const fetchData = async () => {
-    // console.log(debouncedTitle);
-    try {
-      const res = await axios.get(`/api/plan/search?str=${debouncedTitle}`);
-      const data = res.data;
-      // console.log(data);
-      const transformedData = transformData(data);
-      console.log(transformedData);
-      setSearchResults(transformedData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  //
-  const transformData = data => {
-    return data.map(item => ({
-      title: item.title,
-      cate: item.cate,
-      author: item.author,
-      company: item.company,
-      page: item.page,
-      isbn: item.isbn,
-    }));
-  };
+//   const fetchData = async () => {
+//     // console.log(debouncedTitle);
+//     try {
+//       const res = await axios.get(`/api/plan/search?str=${title}`);
+//       const data = res.data;
+//       // console.log(data);
+//       const transformedData = transformData(data);
+//       console.log(transformedData);
+//       setSearchResults(transformedData);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   //
+//   const transformData = data => {
+//     return data.map(item => ({
+//       title: item.title,
+//       cate: item.cate,
+//       author: item.author,
+//       company: item.company,
+//       total: item.total,
+//       isbn: item.isbn,
+//     }));
+//   };
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -91,7 +63,7 @@ const Add = () => {
       finish,
       del,
       isbn,
-      page,
+      total,
     });
 
     const formData = {
@@ -106,7 +78,7 @@ const Add = () => {
       finish,
       del,
       isbn,
-      page,
+      total,
     };
 
     try {
@@ -116,7 +88,6 @@ const Add = () => {
       console.log(error);
     }
 
-    setShowSearchResults(true);
     setCate("");
     setStart("");
     setEnd("");
@@ -129,37 +100,6 @@ const Add = () => {
     setDel("");
   };
 
-  const handleTitleChange = event => {
-    const newTitle = event.target.value;
-    setTitle(newTitle);
-
-    if (newTitle === "") {
-      setCate("");
-      setAuthor("");
-      setCompany("");
-      setBookmark(0);
-      setFinish(0);
-      setDel(0);
-      setShowSearchResults(true);
-      setSearchResults([]);
-    }
-  };
-
-  const handleTitleSelect = inputTitle => {
-    const selectBook = searchResults.find(book => book.title === inputTitle);
-    if (selectBook) {
-      setTitle(selectBook.title);
-      setCate(selectBook.cate);
-      setCompany(selectBook.company);
-      setAuthor(selectBook.author);
-      setBookmark(selectBook.bookmark || 0);
-      setFinish(selectBook.finish || 0);
-      setDel(selectBook.del || 0);
-      setIsbn(selectBook.isbn);
-      setPage(selectBook.page);
-    }
-    setShowSearchResults(false);
-  };
 
   if (new Date(end) < new Date(start)) {
     alert("날짜를 다시 입력해 주세요");
@@ -215,36 +155,10 @@ const Add = () => {
               id="title"
               type="text"
               value={title}
-              onChange={handleTitleChange}
+              onChange={e => setTitle(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className="absolute left-[65.5%]"
-            />
           </div>
-
-          {title !== "" && searchResults.length > 0 && showSearchResults && (
-            <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
-              <ul
-                ref={searchResultsRef}
-                className="block mb-1 w-1/2 ml-10 text-gray-500 border rounded shadow overflow-auto"
-              >
-                {searchResults.map((book, isbn) => (
-                  <li
-                    key={book.title + isbn}
-                    onClick={() => handleTitleSelect(book.title)}
-                    className="border-2 bg-white cursor-pointer text-black text-base py-3"
-                  >
-                    <div>
-                      제목: {book.title} <br />
-                      출판사: {book.company}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">지은이:</label>
@@ -325,4 +239,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default AddBest;

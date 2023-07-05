@@ -1,10 +1,12 @@
-.fc-
+.fc-event-title-container {
+  cursor: pointer;
+}
 /* 일요일 날짜: 빨간색 */
-.fc-day-sun a {
+.fc-day-sun {
   color: red;
 }
 
 /* 토요일 날짜: 파란색 */
-.fc-day-sat a {
+.fc-day-sat {
   color: blue;
 }
