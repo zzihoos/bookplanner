@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-const ExpProgressBar = ({ todoData, level, setLevel }) => {
+const ExpProgressBar = ({ todoList, level, setLevel }) => {
   const [completedCount, setCompletedCount] = useState(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const completedTodos = todoData.icategory?.filter(item => item.del === 1);
+    const completedTodos = todoList.filter(item => item.del === 1);
     setCompletedCount(completedTodos?.length % 10);
     const updatedProgress = (completedTodos?.length % 10) * 10;
     setProgress(updatedProgress);
@@ -14,7 +14,7 @@ const ExpProgressBar = ({ todoData, level, setLevel }) => {
       setCompletedCount(0);
       setProgress(0);
     }
-  }, [todoData]);
+  }, [todoList]);
 
   return (
     <div className="flex justify-between items-center">
@@ -55,8 +55,7 @@ const BookProgressBar = ({ item }) => {
     <div
       className="absolute left-0 bottom-0 bg-black/30 h-4 text-sm rounded"
       style={{ width: `${bookProgress}%` }}
-    >
-    </div>
+    ></div>
   );
 };
 

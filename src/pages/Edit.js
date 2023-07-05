@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { deleteTodo, getEdit, postEdit } from "../api/fetch";
+import { deleteTodo, getEdit, patchEdit } from "../api/fetch";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 import "../scss/edit.scss";
 
 const Edit = () => {
@@ -11,6 +12,7 @@ const Edit = () => {
   const [endDay, setEndDay] = useState("");
   const [memo, setMemo] = useState("");
   const [finish, setFinish] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -28,11 +30,12 @@ const Edit = () => {
   }, []);
 
   const handleDelete = _id => {
-    // 모달창
+    // 403에러, 수정하고 삭제할 시 안되는 문제 해결해야함
     if (params.id == _id) {
       deleteTodo(_id);
+      alert("삭제됐습니다.");
       navigate("/todo");
-      console.log("삭제했어요");
+      setModalOpen(false);
     }
   };
 
@@ -54,11 +57,10 @@ const Edit = () => {
       end: endDay,
       memo: memo,
       finish: finish,
+      itodo: info.itodo,
     };
     setInfo(updatedTodo);
-
-    // 데이터 전송기능 추가해야함
-    postEdit(params.id, startDay, endDay, memo, finish);
+    patchEdit(startDay, endDay, memo, finish, info.itodo);
     setIsEdit(false);
   };
 
@@ -84,9 +86,9 @@ const Edit = () => {
       <>
         <Header />
         <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
-          <form className="w-4/5 border bg-white mt-5 rounded">
+          <form className="w-3/5 border bg-white mt-5 rounded-[8px]">
             <div className="flex item-center justify-center text-center py-5">
-              <label className="w-[200px]">작성 날짜 : </label>
+              <label className="w-[150px]">작성 날짜 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -95,7 +97,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">도서 카테고리 : </label>
+              <label className="w-[150px]">도서 카테고리 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -104,7 +106,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">책 제목 : </label>
+              <label className="w-[150px]">책 제목 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -113,7 +115,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">지은이 : </label>
+              <label className="w-[150px]">지은이 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -122,7 +124,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">출판사 : </label>
+              <label className="w-[150px]">출판사 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -131,7 +133,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">날짜 : </label>
+              <label className="w-[150px]">날짜 : </label>
               <div className="datewrap">
                 <input
                   type="text"
@@ -150,7 +152,7 @@ const Edit = () => {
               </div>
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">메모 : </label>
+              <label className="w-[150px]">메모 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow text-center"
@@ -160,7 +162,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">완료 유무 : </label>
+              <label className="w-[150px]">완료 유무 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow text-center"
@@ -201,9 +203,9 @@ const Edit = () => {
       <>
         <Header />
         <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
-          <form className="w-4/5 border bg-white mt-5 rounded">
+          <form className="w-3/5 border bg-white mt-5 rounded-[8px]">
             <div className="flex item-center justify-center text-center py-5">
-              <label className="w-[200px]">작성 날짜 : </label>
+              <label className="w-[150px]">작성 날짜 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -212,7 +214,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">도서 카테고리 : </label>
+              <label className="w-[150px]">도서 카테고리 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -221,7 +223,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">책 제목 : </label>
+              <label className="w-[150px]">책 제목 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -230,7 +232,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">지은이 : </label>
+              <label className="w-[150px]">지은이 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -239,7 +241,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">출판사 : </label>
+              <label className="w-[150px]">출판사 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -248,7 +250,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">날짜 : </label>
+              <label className="w-[150px]">날짜 : </label>
               <div className="datewrap flex justify-between">
                 <input
                   type="text"
@@ -265,7 +267,7 @@ const Edit = () => {
               </div>
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">메모 : </label>
+              <label className="w-[150px]">메모 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -274,7 +276,7 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[200px]">완료 유무 : </label>
+              <label className="w-[150px]">완료 유무 : </label>
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -298,12 +300,21 @@ const Edit = () => {
             >
               수정
             </button>
-            <button
-              className="ml-14 px-8 py-3 bg-red-500 text-white rounded-md"
-              onClick={() => handleDelete(info.itodo)}
-            >
-              삭제
-            </button>
+            <div>
+              <button
+                className="ml-14 px-8 py-3 bg-red-500 text-white rounded-md"
+                onClick={() => setModalOpen(true)}
+              >
+                삭제
+              </button>
+              {isModalOpen && (
+                <Modal
+                  onClose={() => setModalOpen(false)}
+                  handleDelete={handleDelete}
+                  info={info}
+                ></Modal>
+              )}
+            </div>
             <button
               className="ml-14 px-8 py-3 bg-black text-white rounded-md"
               onClick={handleBack}

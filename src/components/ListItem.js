@@ -2,17 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookProgressBar } from "./ProgreesBar";
 
-const ListItem = ({ item, todoData, setTodoData }) => {
+const ListItem = ({ item, todoList, setTodoData }) => {
   const navigate = useNavigate();
 
   const handleCompleteChange = _itodo => {
-    let newTodoData = todoData.icategory?.map(item => {
+    let newTodoData = todoList.map(item => {
       if (item.itodo === _itodo) {
         return { ...item, del: item.del === 0 ? 1 : 0 };
       }
       return item;
     });
-    setTodoData({ ...todoData, icategory: newTodoData });
+    newTodoData = newTodoData.filter(item => item.del !== 1);
+    setTodoData(newTodoData);
   };
 
   const handleNavigate = () => {
@@ -33,9 +34,7 @@ const ListItem = ({ item, todoData, setTodoData }) => {
 
   return (
     <>
-      <div
-        className={`relative p-3 w-4/5 m-auto ${item.del ? "hidden" : "block"}`}
-      >
+      <div className={`relative p-3 w-4/5 m-auto`}>
         <input
           className="ml-9 absolute top-7 w-8 h-8 z-30"
           type="checkbox"

@@ -20,12 +20,22 @@ const BestSeller = () => {
 
   const handleBestAdd = item => {
     setSelectedItem(item);
+
+    navigate("/add", {
+      state: {
+        title: item.title,
+        author: item.author,
+        company: item.publisher,
+        isbn: item.isbn,
+      },
+    });
     navigate("/addbest");
   };
+
   return (
     <div className="bg-gray-100">
       <Header />
-      <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded mt-5 ">
+      <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded-[8px] mt-5 ">
         <h2 className="text-2xl text-center p-10">베스트 셀러 추천</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
           {bookData.map((item, index) => {
@@ -37,7 +47,7 @@ const BestSeller = () => {
                 >
                   <div
                     className="w-2/4 h-64 imgbox"
-                    onClick={item => handleBestAdd(item)}
+                    onClick={() => handleBestAdd(item)}
                   >
                     <img src={item.cover} alt="" className="w-full h-full" />
                   </div>

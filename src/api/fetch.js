@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// Todo 페이지
+// 투두 페이지 get
 export const getTodo = async () => {
   try {
     const res = await axios.get("/api/todo");
@@ -28,7 +28,7 @@ export const getTodo = async () => {
   }
 };
 
-// 편집 페이지
+// 편집 페이지 get
 export const getEdit = async _id => {
   try {
     const res = await axios.get(`/api/todo/${_id}`);
@@ -50,7 +50,7 @@ export const getEdit = async _id => {
   }
 };
 
-// 베스트셀러 페이지
+// 베스트셀러 페이지 get
 export const getBest = async () => {
   try {
     const res = await axios.get("/api/aladinbestseller");
@@ -93,13 +93,15 @@ export const getBest = async () => {
   }
 };
 
-export const postEdit = async ({ _id, startDay, endDay, memo, finish }) => {
+// 에딧 페이지 patch
+export const patchEdit = async (startDay, endDay, memo, finish, itodo) => {
   try {
-    const res = await axios.post(`/api/todo/${_id}`, {
+    const res = await axios.patch(`/api/todo/${itodo}`, {
       start: startDay,
       end: endDay,
       memo: memo,
       finish: finish,
+      itodo: itodo,
     });
     const result = res.data;
     console.log(result);
@@ -108,7 +110,7 @@ export const postEdit = async ({ _id, startDay, endDay, memo, finish }) => {
   }
 };
 
-// Todo Delete 기능
+// 투두 Delete
 export const deleteTodo = async _id => {
   try {
     const res = await axios.delete(`/api/todo/${_id}`);
