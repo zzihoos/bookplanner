@@ -8,11 +8,9 @@ import ListItem from "../components/ListItem";
 import { ExpProgressBar } from "../components/ProgreesBar";
 
 const Todo = () => {
-  const [todoData, setTodoData] = useState([]);
   const [level, setLevel] = useState(0);
   const [todoList, setTodoList] = useState([]);
-  const [showCompleted, setShowCompleted] = useState(true);
-  const [showIncomplete, setShowIncomplete] = useState(true);
+  const [todoListOrigin, setTodoListOrigin] = useState([]);
 
   useEffect(() => {
     todoDataList();
@@ -20,31 +18,26 @@ const Todo = () => {
 
   const todoDataList = async () => {
     const result = await getTodo();
-    setTodoData(result.icategory);
     setLevel(result.level);
     setTodoList(result.icategory || []);
+    setTodoListOrigin(result.icategory || []);
   };
 
-  // 카테고리 작업해야함......................................
+  const handleAll = () => {
+    console.log("전체목록");
+    const updatedTodoList = todoListOrigin.map(item => item);
+    setTodoList(updatedTodoList);
+  };
   const handleFinish = () => {
     console.log("완실행");
-    const updatedTodoList = todoList.filter(item => {
-      if (item.del === 1) {
-        document.querySelectorAll(".hidden").forEach(item => {
-          item.classList.replace("hidden", "block");
-        });
-        return item;
-      }
-    });
+    const updatedTodoList = todoListOrigin.filter(item => item.del === 1);
     setTodoList(updatedTodoList);
   };
 
   const handleNotFinish = () => {
-    // setShowIncomplete(!showIncomplete);
     console.log("미완실행");
-    todoDataList();
-    setShowCompleted(false);
-    setShowIncomplete(true);
+    const updatedTodoList = todoListOrigin.filter(item => item.del !== 1);
+    setTodoList(updatedTodoList);
   };
 
   return (
@@ -57,6 +50,11 @@ const Todo = () => {
               Todo-List
             </h1>
             <ul className="flex justify-between mb-5">
+              <li>
+                <button className="px-5 py-3" onClick={handleAll}>
+                  전체보기
+                </button>
+              </li>
               <li>
                 <button className="px-5 py-3" onClick={handleFinish}>
                   완료
@@ -86,31 +84,15 @@ const Todo = () => {
           </div>
           <div>
             {todoList.map(item => {
-              if (
-                (showCompleted && item.del === 1) ||
-                (showIncomplete && item.del === 0)
-              ) {
-                return (
-                  <ListItem
-                    key={item.itodo}
-                    item={item}
-                    todoList={todoList}
-                    setTodoData={setTodoList}
-                  />
-                );
-              }
-              return null;
-            })}
-            {/* {todoData?.map(item => {
               return (
                 <ListItem
                   key={item.itodo}
                   item={item}
-                  todoData={todoData}
-                  setTodoData={setTodoData}
+                  todoList={todoList}
+                  setTodoData={setTodoList}
                 />
               );
-            })} */}
+            })}
           </div>
         </div>
       </div>

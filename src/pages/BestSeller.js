@@ -25,6 +25,7 @@ const BestSeller = () => {
         title: item.title,
         author: item.author,
         company: item.publisher,
+        isbn: item.isbn,
       },
     });
   };

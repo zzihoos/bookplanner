@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { deleteTodo, getEdit, postEdit } from "../api/fetch";
+import { deleteTodo, getEdit, patchEdit } from "../api/fetch";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
 import "../scss/edit.scss";
@@ -33,8 +33,8 @@ const Edit = () => {
     // 403에러, 수정하고 삭제할 시 안되는 문제 해결해야함
     if (params.id == _id) {
       deleteTodo(_id);
+      alert("삭제됐습니다.");
       navigate("/todo");
-      console.log("삭제");
       setModalOpen(false);
     }
   };
@@ -57,10 +57,10 @@ const Edit = () => {
       end: endDay,
       memo: memo,
       finish: finish,
+      itodo: info.itodo,
     };
     setInfo(updatedTodo);
-    // 403에러 해결해야함
-    postEdit(startDay, endDay, memo, finish, info.itodo);
+    patchEdit(startDay, endDay, memo, finish, info.itodo);
     setIsEdit(false);
   };
 

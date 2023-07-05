@@ -12,6 +12,7 @@ const ListItem = ({ item, todoList, setTodoData }) => {
       }
       return item;
     });
+    newTodoData = newTodoData.filter(item => item.del !== 1);
     setTodoData(newTodoData);
   };
 
@@ -33,9 +34,7 @@ const ListItem = ({ item, todoList, setTodoData }) => {
 
   return (
     <>
-      <div
-        className={`relative p-3 w-4/5 m-auto ${item.del ? "hidden" : "block"}`}
-      >
+      <div className={`relative p-3 w-4/5 m-auto`}>
         <input
           className="ml-9 absolute top-7 w-8 h-8 z-30"
           type="checkbox"

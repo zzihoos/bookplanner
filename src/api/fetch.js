@@ -93,10 +93,10 @@ export const getBest = async () => {
   }
 };
 
-// 에딧 페이지 post
-export const postEdit = async (startDay, endDay, memo, finish, itodo) => {
+// 에딧 페이지 patch
+export const patchEdit = async (startDay, endDay, memo, finish, itodo) => {
   try {
-    const res = await axios.post(`/api/todo/${itodo}`, {
+    const res = await axios.patch(`/api/todo/${itodo}`, {
       start: startDay,
       end: endDay,
       memo: memo,

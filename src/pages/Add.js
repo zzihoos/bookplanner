@@ -28,10 +28,11 @@ const Add = () => {
 
   useEffect(() => {
     if (location.state) {
-      const { title, author, company } = location.state;
+      const { title, author, company, isbn } = location.state;
       setTitle(prevTitle => title || prevTitle);
       setAuthor(prevAuthor => author || prevAuthor);
       setCompany(prevCompany => company || prevCompany);
+      setIsbn(prevCompany => isbn || prevCompany);
     }
   }, [state]);
 
