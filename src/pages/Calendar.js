@@ -14,7 +14,7 @@ const Calendar = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await axios.get("");
+      const response = await axios.get("/api/calendar");
       const data = response.data;
       const transformedData = transformData(data);
       // console.log(data);

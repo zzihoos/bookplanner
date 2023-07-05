@@ -20,7 +20,7 @@ const BestSeller = () => {
 
   const handleBestAdd = item => {
     setSelectedItem(item);
-    navigate("/add");
+    navigate("/addbest");
   };
   return (
     <div className="bg-gray-100">
