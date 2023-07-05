@@ -20,6 +20,7 @@ const BestSeller = () => {
 
   const handleBestAdd = item => {
     setSelectedItem(item);
+
     navigate("/add", {
       state: {
         title: item.title,
@@ -28,6 +29,7 @@ const BestSeller = () => {
         isbn: item.isbn,
       },
     });
+    navigate("/addbest");
   };
 
   return (
