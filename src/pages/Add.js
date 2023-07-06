@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import Header from "../components/Header";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
 import Header from "../components/Header";
+import "../scss/add.scss";
 
 const Add = () => {
-  const [cate, setCate] = useState("");
+  const [cate, setCate] = useState();
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
@@ -19,31 +17,16 @@ const Add = () => {
   const [finish, setFinish] = useState(0);
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
-  const [page, setPage] = useState("");
+  const [total, setTotal] = useState("");
   const [debouncedTitle, setDebouncedTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
-
-
-  // 출판사데이터, 카테고리 문제 상의
-  const location = useLocation();
-  const { state } = location;
+  const [nowDate, setNowDate] = useState(new Date());
 
   useEffect(() => {
-    if (location.state) {
-      const { title, author, company, isbn } = location.state;
-      setTitle(prevTitle => title || prevTitle);
-      setAuthor(prevAuthor => author || prevAuthor);
-      setCompany(prevCompany => company || prevCompany);
-      setIsbn(prevCompany => isbn || prevCompany);
-    }
-  }, [state]);
-
-  if (new Date(end) < new Date(start)) {
-    alert("날짜를 다시 입력해 주세요");
-    setEnd("");
-  }
+    setNowDate(new Date());
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = event => {
@@ -56,9 +39,7 @@ const Add = () => {
     };
 
     document.addEventListener("click", handleOutsideClick);
-
   }, []);
-
 
   useEffect(() => {
     const delay = 500; // 디바운싱 대기 시간 (밀리초)
@@ -96,7 +77,7 @@ const Add = () => {
       cate: item.cate,
       author: item.author,
       company: item.company,
-      page: item.page,
+      total: item.page,
       isbn: item.isbn,
     }));
   };
@@ -115,7 +96,7 @@ const Add = () => {
       finish,
       del,
       isbn,
-      page,
+      total,
     });
 
     const formData = {
@@ -130,7 +111,7 @@ const Add = () => {
       finish,
       del,
       isbn,
-      page,
+      total,
     };
 
     try {
@@ -141,7 +122,7 @@ const Add = () => {
     }
 
     setShowSearchResults(true);
-    setCate("");
+    setCate();
     setStart("");
     setEnd("");
     setTitle("");
@@ -158,7 +139,7 @@ const Add = () => {
     setTitle(newTitle);
 
     if (newTitle === "") {
-      setCate("");
+      setCate();
       setAuthor("");
       setCompany("");
       setBookmark(0);
@@ -180,7 +161,7 @@ const Add = () => {
       setFinish(selectBook.finish || 0);
       setDel(selectBook.del || 0);
       setIsbn(selectBook.isbn);
-      setPage(selectBook.page);
+      setTotal(selectBook.total);
     }
     setShowSearchResults(false);
   };
@@ -215,7 +196,7 @@ const Add = () => {
             <input
               id="start"
               type="date"
-              value={start}
+              value={nowDate.toISOString().split('T')[0]}
               onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
@@ -249,16 +230,16 @@ const Add = () => {
           </div>
 
           {title !== "" && searchResults.length > 0 && showSearchResults && (
-            <div className="absolute h-72 w-2/3 flex item-center justify-center text-center -translate-x-4 -translate-y-5">
+            <div className="absolute h-64 w-[62%] pl-[45px] flex justify-center text-center -translate-y-5">
               <ul
                 ref={searchResultsRef}
-                className="block mb-1 w-1/2 ml-10 text-gray-500 border rounded shadow overflow-auto"
+                className="block mb-1 w-[55%] text-gray-500 border rounded shadow overflow-auto"
               >
                 {searchResults.map((book, isbn) => (
                   <li
                     key={book.title + isbn}
                     onClick={() => handleTitleSelect(book.title)}
-                    className="border-2 bg-white cursor-pointer text-black text-base py-3"
+                    className="border-2 bg-white cursor-pointer text-black py-3 searchli"
                   >
                     <div>
                       제목: {book.title} <br />
@@ -276,7 +257,7 @@ const Add = () => {
               id="author"
               type="text"
               value={author}
-              onChange={e => setAuthor(e.target.value)}
+              readOnly
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
@@ -287,7 +268,7 @@ const Add = () => {
               id="company"
               type="text"
               value={company}
-              onChange={e => setCompany(e.target.value)}
+              readOnly
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
