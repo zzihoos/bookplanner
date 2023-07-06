@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import Header from "../components/Header";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import Header from "../components/Header";
 
@@ -25,8 +23,6 @@ const Add = () => {
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
 
-
-  // 출판사데이터, 카테고리 문제 상의
   const location = useLocation();
   const { state } = location;
 
@@ -56,9 +52,7 @@ const Add = () => {
     };
 
     document.addEventListener("click", handleOutsideClick);
-
   }, []);
-
 
   useEffect(() => {
     const delay = 500; // 디바운싱 대기 시간 (밀리초)

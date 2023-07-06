@@ -23,56 +23,54 @@ const Todo = () => {
     setTodoListOrigin(result.icategory || []);
   };
 
-  const handleAll = () => {
-    console.log("전체목록");
-    const updatedTodoList = todoListOrigin.map(item => item);
-    setTodoList(updatedTodoList);
-  };
   const handleFinish = () => {
-    console.log("완실행");
-    const updatedTodoList = todoListOrigin.filter(item => item.del === 1);
+    const updatedTodoList = todoListOrigin.filter(item => item.finish === 1);
     setTodoList(updatedTodoList);
   };
 
-  const handleNotFinish = () => {
-    console.log("미완실행");
-    const updatedTodoList = todoListOrigin.filter(item => item.del !== 1);
+  const handleNotFinish = async () => {
+    await todoDataList();
+    const updatedTodoList = todoListOrigin.filter(item => item.finish === 0);
     setTodoList(updatedTodoList);
   };
+
+  useEffect(() => {
+    const initialTodoList = todoListOrigin.filter(item => item.finish === 0);
+    setTodoList(initialTodoList);
+  }, [todoListOrigin]);
 
   return (
     <>
       <Header />
       <div className="flex items-start justify-center w-full bg-gray-100">
-        <div className="mt-5 w-4/5 p-6 bg-white rounded-[8px] shadow relative">
+        <div className="mt-5 w-4/5 p-6 bg-white rounded-[8px] shadow relative min-w-[500px]">
           <div className="mb-8">
-            <h1 className="text-center mb-5 w-full text-2xl font-bold text-purple-300">
+            <h1 className="text-center mb-5 w-full text-2xl font-semibold text-gray-400">
               Todo-List
             </h1>
-            <ul className="flex justify-between mb-5">
+            <ul className="flex justify-evenly mb-5">
               <li>
-                <button className="px-5 py-3" onClick={handleAll}>
-                  전체보기
-                </button>
-              </li>
-              <li>
-                <button className="px-5 py-3" onClick={handleFinish}>
+                <button
+                  className="w-[100px] px-5 py-3 border rounded-lg hover:bg-zinc-200"
+                  onClick={handleFinish}
+                >
                   완료
                 </button>
               </li>
               <li>
-                <button className="px-5 py-3" onClick={handleNotFinish}>
+                <button
+                  className="w-[100px] px-5 py-3 border rounded-lg hover:bg-zinc-200"
+                  onClick={handleNotFinish}
+                >
                   미완료
                 </button>
-              </li>
-              <li>
-                <button className="px-5 py-3">더보기</button>
               </li>
             </ul>
             <ExpProgressBar
               todoList={todoList}
               level={level}
               setLevel={setLevel}
+              todoListOrigin={todoListOrigin}
             />
             <div className="fixed bottom-0 left-64 z-40">
               <Link to="/add">
@@ -89,7 +87,7 @@ const Todo = () => {
                   key={item.itodo}
                   item={item}
                   todoList={todoList}
-                  setTodoData={setTodoList}
+                  setTodoList={setTodoList}
                 />
               );
             })}

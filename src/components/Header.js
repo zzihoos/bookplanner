@@ -8,7 +8,7 @@ const Header = () => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-1 lg:px-6" aria-label="Global">
 
         <div className="flex items-center">
-          <img className="h-24 scale-150" src="/bookplanner.png" alt="logo" />
+          <img className="h-24 scale-[2]" src="/bookplanner2.png" alt="logo" />
         </div>
         <div className="flex space-x-14">
           <Link

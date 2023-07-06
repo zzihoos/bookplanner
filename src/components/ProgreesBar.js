@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-const ExpProgressBar = ({ todoList, level, setLevel }) => {
+const ExpProgressBar = ({ todoList, level, setLevel, todoListOrigin }) => {
   const [completedCount, setCompletedCount] = useState(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const completedTodos = todoList.filter(item => item.del === 1);
-    setCompletedCount(completedTodos?.length % 10);
-    const updatedProgress = (completedTodos?.length % 10) * 10;
+    const completedTodos = todoListOrigin.filter(item => item.finish === 1);
+    const completedCount = completedTodos?.length % 10;
+    const updatedProgress = completedCount * 10;
+
+    setCompletedCount(completedCount);
     setProgress(updatedProgress);
-    if (updatedProgress == 0 && completedTodos?.length > 0) {
-      setLevel(level => level + 1);
+
+    if (updatedProgress === 0 && completedTodos?.length > 0) {
+      // setLevel(level => level + 1);
       setCompletedCount(0);
       setProgress(0);
     }
-  }, [todoList]);
+  }, [todoList, todoListOrigin]);
 
   return (
     <div className="flex justify-between items-center">
@@ -37,19 +40,16 @@ const ExpProgressBar = ({ todoList, level, setLevel }) => {
 const BookProgressBar = ({ item }) => {
   // 책갈피 기능 = '북마크값 나누기 전체페이지값 곱하기 100'
   const [bookProgress, setBookProgress] = useState();
+  const totalpage = parseInt(item.totalpage);
+
   useEffect(() => {
-    const bookmark = (item.bookmark / 100) * 100;
-    setBookProgress(bookmark);
+    if (totalpage !== null) {
+      const bookmark = (item.bookmark / totalpage) * 100;
+      setBookProgress(bookmark);
+    } else {
+      return null;
+    }
   }, []);
-  // 실제로 쓸 데이터
-  // useEffect(() => {
-  //   if (전체페이지 !== null) {
-  //     const bookmark = (item.bookmark / 전체페이지) * 100;
-  //     setBookProgress(bookmark);
-  //   } else {
-  //     return null;
-  //   }
-  // }, []);
 
   return (
     <div

@@ -7,11 +7,16 @@ import "../scss/edit.scss";
 
 const Edit = () => {
   const [info, setInfo] = useState({});
-  const [isEdit, setIsEdit] = useState(false);
-  const [startDay, setStartDay] = useState("");
-  const [endDay, setEndDay] = useState("");
+  const [createdate, setCreateDate] = useState("");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [company, setCompany] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [memo, setMemo] = useState("");
+  const [bookmark, setBookmark] = useState("");
   const [finish, setFinish] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
@@ -19,9 +24,14 @@ const Edit = () => {
   const editListData = async () => {
     const result = await getEdit(params.id);
     setInfo(result);
-    setStartDay(result.start);
-    setEndDay(result.end);
+    setCreateDate(result.createdTodo);
+    setTitle(result.title);
+    setAuthor(result.writer);
+    setCompany(result.publisher);
+    setStart(result.start);
+    setEnd(result.end);
     setMemo(result.memo);
+    setBookmark(result.bookmark);
     setFinish(result.finish);
   };
 
@@ -30,7 +40,6 @@ const Edit = () => {
   }, []);
 
   const handleDelete = _id => {
-    // 403에러, 수정하고 삭제할 시 안되는 문제 해결해야함
     if (params.id == _id) {
       deleteTodo(_id);
       alert("삭제됐습니다.");
@@ -39,28 +48,17 @@ const Edit = () => {
     }
   };
 
-  const handleSave = e => {
+  const handleSave = async e => {
     e.preventDefault();
-
-    if (e.target.name === "start") {
-      setStartDay(e.target.value);
-    } else if (e.target.name === "end") {
-      setEndDay(e.target.value);
-    } else if (e.target.name === "memo") {
-      setMemo(e.target.value);
-    } else if (e.target.name === "finish") {
-      setFinish(e.target.value);
-    }
-
     const updatedTodo = {
-      start: startDay,
-      end: endDay,
+      start: start,
+      end: end,
       memo: memo,
       finish: finish,
       itodo: info.itodo,
     };
     setInfo(updatedTodo);
-    patchEdit(startDay, endDay, memo, finish, info.itodo);
+    await patchEdit(start, end, memo, finish, info.itodo);
     setIsEdit(false);
   };
 
@@ -69,16 +67,19 @@ const Edit = () => {
   };
 
   const handleStartChange = e => {
-    setStartDay(e.target.value);
+    setStart(e.target.value);
   };
   const handleEndChange = e => {
-    setEndDay(e.target.value);
+    setEnd(e.target.value);
   };
   const handleMemoChange = e => {
     setMemo(e.target.value);
   };
   const handleCompletedChange = e => {
     setFinish(e.target.value);
+  };
+  const handleBookmark = e => {
+    setBookmark(e.target.value.replace(/[^0-9]/g, ""));
   };
 
   if (isEdit) {
@@ -92,16 +93,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.createdTodo || ""}
-                readOnly
-              />
-            </div>
-            <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[150px]">도서 카테고리 : </label>
-              <input
-                type="text"
-                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.catename || ""}
+                value={createdate || ""}
                 readOnly
               />
             </div>
@@ -110,7 +102,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.title || ""}
+                value={title || ""}
                 readOnly
               />
             </div>
@@ -119,7 +111,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.writer || ""}
+                value={author || ""}
                 readOnly
               />
             </div>
@@ -128,25 +120,25 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={"출판사내놔" || ""}
+                value={company || ""}
                 readOnly
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
               <label className="w-[150px]">날짜 : </label>
-              <div className="datewrap">
+              <div className="datewrap flex justify-between">
                 <input
-                  type="text"
+                  type="date"
                   className="w-1/4 px-3 py-2 ml-10 border rounded shadow text-center date"
                   name="start"
-                  value={startDay || ""}
+                  value={start || ""}
                   onChange={e => handleStartChange(e)}
                 />
                 <input
-                  type="text"
+                  type="date"
                   className="w-1/4 px-3 py-2 ml-10 border rounded shadow text-center date"
                   name="end"
-                  value={endDay || ""}
+                  value={end || ""}
                   onChange={e => handleEndChange(e)}
                 />
               </div>
@@ -162,13 +154,23 @@ const Edit = () => {
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
+              <label className="w-[150px]">책갈피 : </label>
+              <input
+                type="text"
+                className="w-2/4 px-3 py-2 ml-10 border rounded shadow text-center"
+                value={bookmark || ""}
+                onChange={e => handleBookmark(e)}
+              />
+            </div>
+            <div className="flex item-center justify-center text-center pb-5">
               <label className="w-[150px]">완료 유무 : </label>
               <input
                 type="text"
-                className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow text-center"
+                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
                 name="finish"
                 value={finish || ""}
                 onChange={e => handleCompletedChange(e)}
+                readOnly
               />
             </div>
             <div className="flex item-center justify-center text-center pb-5">
@@ -209,16 +211,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.createdTodo || ""}
-                readOnly
-              />
-            </div>
-            <div className="flex item-center justify-center text-center pb-5">
-              <label className="w-[150px]">도서 카테고리 : </label>
-              <input
-                type="text"
-                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.catename || ""}
+                value={createdate || ""}
                 readOnly
               />
             </div>
@@ -227,7 +220,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.title || ""}
+                value={title || ""}
                 readOnly
               />
             </div>
@@ -236,7 +229,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={info.writer || ""}
+                value={author || ""}
                 readOnly
               />
             </div>
@@ -245,7 +238,7 @@ const Edit = () => {
               <input
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
-                value={"출판사내놔" || ""}
+                value={company || ""}
                 readOnly
               />
             </div>
@@ -255,13 +248,13 @@ const Edit = () => {
                 <input
                   type="text"
                   className="w-1/4 px-3 py-2 text-gray-500 bg-gray-200 border rounded shadow text-center date"
-                  value={startDay || ""}
+                  value={start || ""}
                   readOnly
                 />
                 <input
                   type="text"
                   className="w-1/4 px-3 py-2 text-gray-500 bg-gray-200 border rounded shadow text-center date"
-                  value={endDay || ""}
+                  value={end || ""}
                   readOnly
                 />
               </div>
@@ -272,6 +265,15 @@ const Edit = () => {
                 type="text"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
                 value={memo || ""}
+                readOnly
+              />
+            </div>
+            <div className="flex item-center justify-center text-center pb-5">
+              <label className="w-[150px]">책갈피 : </label>
+              <input
+                type="text"
+                className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
+                value={bookmark || ""}
                 readOnly
               />
             </div>
