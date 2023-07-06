@@ -29,26 +29,25 @@ const BestSeller = () => {
         isbn: item.isbn13,
       },
     });
-   
   };
 
   return (
     <div className="bg-gray-100">
       <Header />
       <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded-[8px] mt-5 ">
-        <h2 className="text-2xl text-center p-10">베스트 셀러 추천</h2>
+        <h2 className="text-2xl text-center p-10 text-gray-400 font-semibold">
+          베스트 셀러 추천
+        </h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
           {bookData.map((item, index) => {
             if (index < 6) {
               return (
                 <div
-                  className="p-5 flex items-center w-full h-96 hover:bg-slate-200"
+                  className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded"
                   key={index}
+                  onClick={() => handleBestAdd(item)}
                 >
-                  <div
-                    className="w-2/4 h-64 imgbox"
-                    onClick={() => handleBestAdd(item)}
-                  >
+                  <div className="w-2/4 h-64 imgbox">
                     <img src={item.cover} alt="" className="w-full h-full" />
                   </div>
                   <ul className="flex flex-col p-5 justify-center items-center">

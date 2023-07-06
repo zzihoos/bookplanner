@@ -10,11 +10,9 @@ const Header = () => {
         aria-label="Global"
       >
         <div className="flex items-center">
-          <img
-            className="logo"
-            src="/bookplanner.png"
-            alt="logo"
-          />
+
+          <img className="h-24 scale-[2]" src="/bookplanner2.png" alt="logo" />
+
         </div>
         <div className="flex space-x-14">
           <Link

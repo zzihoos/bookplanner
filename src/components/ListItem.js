@@ -1,19 +1,41 @@
+import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookProgressBar } from "./ProgreesBar";
 
-const ListItem = ({ item, todoList, setTodoData }) => {
+const ListItem = ({ item, todoList, setTodoList }) => {
   const navigate = useNavigate();
 
-  const handleCompleteChange = _itodo => {
-    let newTodoData = todoList.map(item => {
-      if (item.itodo === _itodo) {
-        return { ...item, del: item.del === 0 ? 1 : 0 };
-      }
-      return item;
-    });
-    newTodoData = newTodoData.filter(item => item.del !== 1);
-    setTodoData(newTodoData);
+  const handleCompleteChange = async _itodo => {
+    try {
+      const updatedTodoList = todoList.map(todoItem => {
+        if (todoItem.itodo === _itodo) {
+          return {
+            ...todoItem,
+            finish: todoItem.finish === 0 ? 1 : 0,
+          };
+        }
+        return todoItem;
+      });
+
+      const filteredTodoList = updatedTodoList.filter(
+        todoItem => todoItem.itodo !== _itodo,
+      );
+
+      const updatedTodo = updatedTodoList.find(
+        todoItem => todoItem.itodo === _itodo,
+      );
+
+      await axios.patch("/api/todo", {
+        itodo: _itodo,
+        finish: updatedTodo.finish,
+      });
+
+      setTodoList(filteredTodoList);
+      console.log("데이터 전송 실행");
+    } catch (error) {
+      console.error("데이터 전송에 실패했습니다.", error);
+    }
   };
 
   const handleNavigate = () => {
@@ -27,18 +49,18 @@ const ListItem = ({ item, todoList, setTodoData }) => {
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
     return (
       <p className="relative z-10">
-        <span className="text-red-[#ff4545]">{`${day}일`}</span> 남았습니다.
+        <span className="text-[#ff4545]">{`${day}일`}</span> 남았습니다.
       </p>
     );
   };
 
   return (
     <>
-      <div className={`relative p-3 w-4/5 m-auto`}>
+      <div className="relative p-3 w-4/5 m-auto">
         <input
           className="ml-9 absolute top-7 w-8 h-8 z-30"
           type="checkbox"
-          defaultChecked={item.del === 1}
+          defaultChecked={item.finish === 1}
           onChange={() => handleCompleteChange(item.itodo)}
         />
         <div
@@ -46,7 +68,9 @@ const ListItem = ({ item, todoList, setTodoData }) => {
           style={{ background: `${item.color}` }}
           onClick={handleNavigate}
         >
-          <span className="z-20 relative">{item.title}</span>
+          <span className="z-20 w-[80%] m-auto relative line-clamp-1">
+            {item.title}
+          </span>
           {getDDay(item)}
           <BookProgressBar item={item} />
         </div>

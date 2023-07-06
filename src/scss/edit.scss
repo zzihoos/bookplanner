@@ -1,18 +1,38 @@
-.datewrap {
-  width: 53.5%;
-  .date {
-    width: 44%;
-    &:first-child {
-      margin-left: 6%;
+form {
+  min-width: 450px;
+  .datewrap {
+    width: 53.5%;
+    .date {
+      width: 44%;
+      &:first-child {
+        margin-left: 6.5%;
+      }
     }
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1440px) {
   .datewrap {
     .date {
       &:first-child {
-        margin-left: 7.5%;
+        margin-left: 8%;
+        transition: all 0.5s;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .datewrap {
+    width: 54.5%;
+    transform: translateX(1%);
+    .date {
+      &:first-child {
+        margin-left: 9%;
+        transition: all 0.5s;
+      }
+      &:last-child {
+        margin-left: 9%;
         transition: all 0.5s;
       }
     }
@@ -27,6 +47,10 @@
     .date {
       &:first-child {
         margin-left: 11%;
+      }
+      &:last-child {
+        margin-left: 2%;
+        transition: all 0.5s;
       }
     }
   }

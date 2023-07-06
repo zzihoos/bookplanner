@@ -22,7 +22,9 @@ const Add = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
+
   const [nowDate, setNowDate] = useState(new Date());
+
 
   useEffect(() => {
     setNowDate(new Date());
