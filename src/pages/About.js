@@ -49,7 +49,7 @@ const About = () => {
                 </h1>
                 <p className="mt-6 text-xl leading-8 text-gray-700">
                   사용자의 독서일정 계획 및 관리를 도와주는 Todo List
-                  어플리케이션
+                  웹어플리케이션
                 </p>
               </div>
             </div>
@@ -64,10 +64,19 @@ const About = () => {
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div className="lg:pr-4">
               <div className="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
-                <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
-                  작품소개
+                <h2 className="mt-5 mb-8 text-2xl font-bold tracking-tight text-gray-900">
+                  주요기능
                 </h2>
-                <p>설명............................</p>
+                <p>사용자의 Todo-List를 보여주는 Todo<br/>
+                    사용자의 Todo-List를 수정 및 삭제할 수 있는 Edit<br/>
+                    Todo-List를 추가하는 Add <br/>
+                    Add 페이지의 책 제목 자동완성검색기능<br/>
+                    현재 가장 있기있는 베스트셀러 책을 보여주는 BestSeller<br/>
+                    BestSeller에서 원하는 책을 클릭하면 자동으로 정보를 입력해주는 AddBest<br/>
+                    Todo-List 정보를 달력에 표시해주는 calendar
+
+
+                    </p>
                 <ul role="list" className="mt-8 space-y-8 text-gray-600">
                   <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
                     조원소개

@@ -1,0 +1,15 @@
+.logo {
+  height: 96px;
+  scale: 1.5;
+}
+@media (max-width: 630px) {
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+@media (max-width: 570px) {
+  .logo {
+    display: none;
+  }
+}/*# sourceMappingURL=header.css.map */

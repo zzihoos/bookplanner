@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { useLocation } from "react-router";
+import Header from "../components/Header";
 
 const AddBest = () => {
   const [cate, setCate] = useState(11);
@@ -14,40 +17,31 @@ const AddBest = () => {
   const [finish, setFinish] = useState(0);
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
-  const [total, setTotal] = useState("");
-//   const [searchResults, setSearchResults] = useState([]);
-//   const [showSearchResults, setShowSearchResults] = useState(true);
-//   const searchResultsRef = useRef(null);
+  const [total, setTotal] = useState(null);
+  const [nowDate, setNowDate] = useState(new Date());
 
+  useEffect(() => {
+    setNowDate(new Date());
+  }, []);
 
-//   useEffect(() => {
-//     fetchData();
-//   }, [title]);
+  // 출판사데이터, 카테고리 문제 상의
+  const location = useLocation();
+  const { state } = location;
 
-//   const fetchData = async () => {
-//     // console.log(debouncedTitle);
-//     try {
-//       const res = await axios.get(`/api/plan/search?str=${title}`);
-//       const data = res.data;
-//       // console.log(data);
-//       const transformedData = transformData(data);
-//       console.log(transformedData);
-//       setSearchResults(transformedData);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   //
-//   const transformData = data => {
-//     return data.map(item => ({
-//       title: item.title,
-//       cate: item.cate,
-//       author: item.author,
-//       company: item.company,
-//       total: item.total,
-//       isbn: item.isbn,
-//     }));
-//   };
+  useEffect(() => {
+    if (location.state) {
+      const { title, author, company, isbn } = location.state;
+      setTitle(prevTitle => title || prevTitle);
+      setAuthor(prevAuthor => author || prevAuthor);
+      setCompany(prevCompany => company || prevCompany);
+      setIsbn(prevCompany => isbn || prevCompany);
+    }
+  }, [state]);
+
+  if (new Date(end) < new Date(start)) {
+    alert("날짜를 다시 입력해 주세요");
+    setEnd("");
+  }
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -88,7 +82,7 @@ const AddBest = () => {
       console.log(error);
     }
 
-    setCate("");
+    setCate();
     setStart("");
     setEnd("");
     setTitle("");
@@ -98,8 +92,8 @@ const AddBest = () => {
     setBookmark("");
     setFinish("");
     setDel("");
+    setTotal();
   };
-
 
   if (new Date(end) < new Date(start)) {
     alert("날짜를 다시 입력해 주세요");
@@ -112,26 +106,24 @@ const AddBest = () => {
       <div className="flex flex-col items-center justify-center w-full mb-2 px-4 text-gray-600 bg-gray-100 border rounded">
         <form
           onSubmit={handleSubmit}
-          className="w-3/5 border bg-white my-5 rounded"
+          className="w-3/5 border bg-white my-5 rounded-[8px]"
         >
           <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
-          {/* <div>
-            
+          <div>
             <input
               id="category"
               type="hidden"
               value={cate}
-              onChange={e => setCate(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
-          </div> */}
+          </div>
 
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">시작일:</label>
             <input
               id="start"
               type="date"
-              value={start}
+              value={nowDate.toISOString().split("T")[0]}
               onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
@@ -155,8 +147,12 @@ const AddBest = () => {
               id="title"
               type="text"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              readOnly
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-[65.5%]"
             />
           </div>
 
@@ -166,7 +162,7 @@ const AddBest = () => {
               id="author"
               type="text"
               value={author}
-              onChange={e => setAuthor(e.target.value)}
+              readOnly
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
@@ -177,7 +173,7 @@ const AddBest = () => {
               id="company"
               type="text"
               value={company}
-              onChange={e => setCompany(e.target.value)}
+              readOnly
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
           </div>
