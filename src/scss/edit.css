@@ -1,0 +1,26 @@
+.datewrap {
+  width: 53.5%;
+}
+.datewrap .date {
+  width: 44%;
+}
+.datewrap .date:first-child {
+  margin-left: 6%;
+}
+
+@media screen and (max-width: 1200px) {
+  .datewrap .date:first-child {
+    margin-left: 7.5%;
+    transition: all 0.5s;
+  }
+}
+@media screen and (max-width: 900px) {
+  .datewrap {
+    width: 56.5%;
+    gap: 0 5%;
+    transition: all 0.5s;
+  }
+  .datewrap .date:first-child {
+    margin-left: 11%;
+  }
+}/*# sourceMappingURL=edit.css.map */

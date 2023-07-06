@@ -21,15 +21,15 @@ const BestSeller = () => {
   const handleBestAdd = item => {
     setSelectedItem(item);
 
-    navigate("/add", {
+    navigate("/addbest", {
       state: {
         title: item.title,
         author: item.author,
         company: item.publisher,
-        isbn: item.isbn,
+        isbn: item.isbn13,
       },
     });
-    navigate("/addbest");
+   
   };
 
   return (

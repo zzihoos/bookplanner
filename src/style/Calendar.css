@@ -1,3 +1,9 @@
+.fc-event-main-frame{
+  height:17px;
+}
+.fc-event-title {
+  font-size:12px;
+}
 .fc-event-title-container {
   cursor: pointer;
 }
