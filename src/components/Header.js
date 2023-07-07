@@ -11,7 +11,7 @@ const Header = () => {
       >
         <div className="flex items-center">
 
-          <img className="h-24 scale-[2]" src="/bookplanner2.png" alt="logo" />
+          <img className="logo" src="/bookplanner2.png" alt="logo" />
 
         </div>
         <div className="flex space-x-14">

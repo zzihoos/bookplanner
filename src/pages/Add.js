@@ -5,6 +5,7 @@ import axios from "axios";
 import Header from "../components/Header";
 import "../scss/add.scss";
 
+
 const Add = () => {
   const [cate, setCate] = useState();
   const [start, setStart] = useState("");
@@ -23,13 +24,6 @@ const Add = () => {
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
 
-  const [nowDate, setNowDate] = useState(new Date());
-
-
-  useEffect(() => {
-    setNowDate(new Date());
-  }, []);
-
   useEffect(() => {
     const handleOutsideClick = event => {
       if (
@@ -41,7 +35,7 @@ const Add = () => {
     };
 
     document.addEventListener("click", handleOutsideClick);
-  }, []);
+  },[]);
 
   useEffect(() => {
     const delay = 500; // 디바운싱 대기 시간 (밀리초)
@@ -60,19 +54,16 @@ const Add = () => {
   }, [debouncedTitle]);
 
   const fetchData = async () => {
-    // console.log(debouncedTitle);
     try {
       const res = await axios.get(`/api/plan/search?str=${debouncedTitle}`);
       const data = res.data;
-      // console.log(data);
       const transformedData = transformData(data);
-      console.log(transformedData);
       setSearchResults(transformedData);
     } catch (error) {
       console.log(error);
     }
   };
-  //
+
   const transformData = data => {
     return data.map(item => ({
       title: item.title,
@@ -182,23 +173,13 @@ const Add = () => {
           className="w-3/5 border bg-white my-5 rounded-[8px]"
         >
           <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
-          {/* <div>
-            
-            <input
-              id="category"
-              type="hidden"
-              value={cate}
-              onChange={e => setCate(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div> */}
 
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">시작일:</label>
             <input
               id="start"
               type="date"
-              value={nowDate.toISOString().split('T')[0]}
+              value={start}
               onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
@@ -216,7 +197,7 @@ const Add = () => {
           </div>
 
           <div className="flex items-center justify-center text-center py-5">
-            <label className="block mb-1">책제목:</label>
+            <label className="title">책제목:</label>
 
             <input
               id="title"
@@ -225,10 +206,7 @@ const Add = () => {
               onChange={handleTitleChange}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className="absolute left-[65.5%]"
-            />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="searchicon" />
           </div>
 
           {title !== "" && searchResults.length > 0 && showSearchResults && (
@@ -292,39 +270,6 @@ const Add = () => {
             >
               저장
             </button>
-          </div>
-
-          {/* bookmark */}
-          <div>
-            <input
-              id="bookmark"
-              type="hidden"
-              value={bookmark}
-              onChange={e => setBookmark(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
-
-          {/* finish */}
-          <div>
-            <input
-              id="finish"
-              type="hidden"
-              value={finish}
-              onChange={e => setFinish(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
-
-          {/* finish */}
-          <div>
-            <input
-              id="del"
-              type="hidden"
-              value={del}
-              onChange={e => setDel(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
           </div>
         </form>
       </div>
