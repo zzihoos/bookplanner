@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import Header from "../components/Header";
+import "../scss/addbest.scss";
 
 const AddBest = () => {
   const [cate, setCate] = useState(11);
-  const [start, setStart] = useState("");
+  const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -18,8 +20,12 @@ const AddBest = () => {
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
   const [total, setTotal] = useState(null);
+  const [nowDate, setNowDate] = useState(new Date());
 
-  // 출판사데이터, 카테고리 문제 상의
+  useEffect(() => {
+    setStart(moment(start).format("YYYY-MM-DD"));
+  }, []);
+
   const location = useLocation();
   const { state } = location;
 
@@ -135,7 +141,7 @@ const AddBest = () => {
               type="text"
               value={title}
               readOnly
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
@@ -150,7 +156,7 @@ const AddBest = () => {
               type="text"
               value={author}
               readOnly
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
             />
           </div>
 
@@ -161,7 +167,7 @@ const AddBest = () => {
               type="text"
               value={company}
               readOnly
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
             />
           </div>
 

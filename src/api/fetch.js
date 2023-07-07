@@ -92,13 +92,13 @@ export const getBest = async () => {
 };
 
 // 에딧 페이지 patch
-export const patchEdit = async (startDay, endDay, memo, finish, itodo) => {
+export const patchEdit = async (startDay, endDay, memo, bookmark, itodo) => {
   try {
     const res = await axios.patch(`/api/todo/${itodo}`, {
       start: startDay,
       end: endDay,
       memo: memo,
-      finish: finish,
+      bookmark: bookmark,
       itodo: itodo,
     });
     const result = res.data;
