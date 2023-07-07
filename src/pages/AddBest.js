@@ -18,11 +18,6 @@ const AddBest = () => {
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
   const [total, setTotal] = useState(null);
-  const [nowDate, setNowDate] = useState(new Date());
-
-  useEffect(() => {
-    setNowDate(new Date());
-  }, []);
 
   // 출판사데이터, 카테고리 문제 상의
   const location = useLocation();
@@ -109,21 +104,13 @@ const AddBest = () => {
           className="w-3/5 border bg-white my-5 rounded-[8px]"
         >
           <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
-          <div>
-            <input
-              id="category"
-              type="hidden"
-              value={cate}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
 
           <div className="flex items-center justify-center text-center py-5">
             <label className="block mb-1">시작일:</label>
             <input
               id="start"
               type="date"
-              value={nowDate.toISOString().split("T")[0]}
+              value={start}
               onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
@@ -195,39 +182,6 @@ const AddBest = () => {
             >
               저장
             </button>
-          </div>
-
-          {/* bookmark */}
-          <div>
-            <input
-              id="bookmark"
-              type="hidden"
-              value={bookmark}
-              onChange={e => setBookmark(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
-
-          {/* finish */}
-          <div>
-            <input
-              id="finish"
-              type="hidden"
-              value={finish}
-              onChange={e => setFinish(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
-          </div>
-
-          {/* finish */}
-          <div>
-            <input
-              id="del"
-              type="hidden"
-              value={del}
-              onChange={e => setDel(e.target.value)}
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
-            />
           </div>
         </form>
       </div>

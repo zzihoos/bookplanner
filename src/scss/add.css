@@ -22,4 +22,38 @@
     font-size: 9px;
     line-height: 1.2;
   }
+}
+
+.title {
+  display: block;
+  position: relative;
+}
+
+.searchicon {
+  position: absolute;
+  left: 65.5%;
+}
+@media (max-width: 800px) {
+  .searchicon {
+    position: absolute;
+    left: 67.5%;
+  }
+}
+@media (max-width: 675px) {
+  .searchicon {
+    position: absolute;
+    left: 69.5%;
+  }
+}
+@media (max-width: 595px) {
+  .searchicon {
+    position: absolute;
+    left: 71.5%;
+  }
+}
+@media (max-width: 595px) {
+  .searchicon {
+    position: absolute;
+    left: 73%;
+  }
 }/*# sourceMappingURL=add.css.map */

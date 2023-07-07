@@ -12,10 +12,11 @@ const Calendar = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     try {
-      const response = await axios.get("api/calendar");
-      const data = response.data;
+      const res = await axios.get("/calendardata.json");
+      const data = res.data;
       const transformedData = transformData(data);
       // console.log(data);
       setEvents(transformedData);
@@ -24,6 +25,7 @@ const Calendar = () => {
       console.log(error);
     }
   };
+
   const transformData = data => {
     return data.map(event => ({
       itodo: event.itodo,
