@@ -23,3 +23,35 @@
         }
     }
 }
+.title{
+    display:block;
+    position:relative;
+}
+.searchicon{
+    position:absolute;
+    left: 65.5%;
+    @media (max-width: 800px){
+        &{
+            position:absolute;
+    left: 67.5%;
+        }
+    }
+    @media (max-width: 675px){
+        &{
+            position:absolute;
+    left: 69.5%;
+        }
+    }
+    @media (max-width: 595px){
+        &{
+            position:absolute;
+    left: 71.5%;
+        }
+    }
+    @media (max-width: 595px){
+        &{
+            position:absolute;
+    left: 73%;
+        }
+    }
+}
