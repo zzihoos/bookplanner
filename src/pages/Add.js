@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import moment from "moment";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import "../scss/add.scss";
 
 const Add = () => {
   const [cate, setCate] = useState();
-  const [start, setStart] = useState("");
+  const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -23,11 +24,8 @@ const Add = () => {
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
 
-  const [nowDate, setNowDate] = useState(new Date());
-
-
   useEffect(() => {
-    setNowDate(new Date());
+    setStart(moment(start).format("YYYY-MM-DD"));
   }, []);
 
   useEffect(() => {
@@ -181,7 +179,9 @@ const Add = () => {
           onSubmit={handleSubmit}
           className="w-3/5 border bg-white my-5 rounded-[8px]"
         >
-          <h2 className="py-10 font-bold text-2xl text-center">일정 입력</h2>
+          <h2 className="py-10 font-bold text-2xl text-center text-gray-400">
+            일정 입력
+          </h2>
           {/* <div>
             
             <input
@@ -198,7 +198,7 @@ const Add = () => {
             <input
               id="start"
               type="date"
-              value={nowDate.toISOString().split('T')[0]}
+              value={start}
               onChange={e => setStart(e.target.value)}
               className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
             />
@@ -260,7 +260,7 @@ const Add = () => {
               type="text"
               value={author}
               readOnly
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
             />
           </div>
 
@@ -271,7 +271,7 @@ const Add = () => {
               type="text"
               value={company}
               readOnly
-              className="w-2/4 px-3 py-2 ml-10 text-gray-500 border rounded shadow"
+              className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow"
             />
           </div>
 

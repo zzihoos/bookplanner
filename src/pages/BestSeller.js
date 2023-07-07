@@ -43,9 +43,10 @@ const BestSeller = () => {
             if (index < 6) {
               return (
                 <div
-                  className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded"
+                  className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded cursor-pointer info"
                   key={index}
                   onClick={() => handleBestAdd(item)}
+                  title="해당 정보를 누르면 책 등록페이지로 이동합니다"
                 >
                   <div className="w-2/4 h-64 imgbox">
                     <img src={item.cover} alt="" className="w-full h-full" />

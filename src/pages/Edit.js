@@ -54,11 +54,11 @@ const Edit = () => {
       start: start,
       end: end,
       memo: memo,
-      finish: finish,
+      bookmark: bookmark,
       itodo: info.itodo,
     };
     setInfo(updatedTodo);
-    await patchEdit(start, end, memo, finish, info.itodo);
+    await patchEdit(start, end, memo, bookmark, info.itodo);
     setIsEdit(false);
   };
 

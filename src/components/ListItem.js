@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookProgressBar } from "./ProgreesBar";
 
-const ListItem = ({ item, todoList, setTodoList }) => {
+const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
   const navigate = useNavigate();
 
   const handleCompleteChange = async _itodo => {
@@ -32,7 +32,7 @@ const ListItem = ({ item, todoList, setTodoList }) => {
       });
 
       setTodoList(filteredTodoList);
-      console.log("데이터 전송 실행");
+      await todoDataList();
     } catch (error) {
       console.error("데이터 전송에 실패했습니다.", error);
     }
@@ -49,14 +49,17 @@ const ListItem = ({ item, todoList, setTodoList }) => {
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
     return (
       <p className="relative z-10">
-        <span className="text-[#ff4545]">{`${day}일`}</span> 남았습니다.
+        <span className="text-white">{`${day}일`}</span> 남았습니다.
       </p>
     );
   };
 
   return (
     <>
-      <div className="relative p-3 w-4/5 m-auto">
+      <div
+        className="relative p-3 w-4/5 m-auto"
+        title="누르면 상세정보를 볼 수 있습니다"
+      >
         <input
           className="ml-9 absolute top-7 w-8 h-8 z-30"
           type="checkbox"
@@ -68,7 +71,7 @@ const ListItem = ({ item, todoList, setTodoList }) => {
           style={{ background: `${item.color}` }}
           onClick={handleNavigate}
         >
-          <span className="z-20 w-[80%] m-auto relative line-clamp-1">
+          <span className="z-20 w-[90%] m-auto relative line-clamp-1">
             {item.title}
           </span>
           {getDDay(item)}

@@ -6,13 +6,11 @@ const Header = () => {
   return (
     <header className="border-b-2 bg-[#FFFEFA] overflow-hidden">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-1 lg:px-6"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6"
         aria-label="Global"
       >
         <div className="flex items-center">
-
-          <img className="h-24 scale-[2]" src="/bookplanner2.png" alt="logo" />
-
+          <img className="logo" src="/bookplanner2.png" alt="logo" />
         </div>
         <div className="flex space-x-14">
           <Link
