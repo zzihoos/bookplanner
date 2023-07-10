@@ -9,7 +9,7 @@ import "../scss/add.scss";
 
 const Add = () => {
   const [cate, setCate] = useState();
-  const [start, setStart] = useState(new Date());
+  const [start, setStart] = useState(new Date);
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -29,7 +29,7 @@ const Add = () => {
   useEffect(() => {
     setStart(moment(start).format("YYYY-MM-DD"));
   }, []);
-
+ 
   useEffect(() => {
     const handleOutsideClick = event => {
       if (
@@ -44,16 +44,16 @@ const Add = () => {
   },[]);
 
   useEffect(() => {
-    const delay = 500; // 디바운싱 대기 시간 (밀리초)
+    const delay = 500;
 
     const timeoutId = setTimeout(() => {
-      setDebouncedTitle(title); // 입력된 title 값을 debouncedTitle로 업데이트
+      setDebouncedTitle(title);
     }, delay);
 
     return () => {
-      clearTimeout(timeoutId); // 이전 타임아웃 제거
+      clearTimeout(timeoutId);
     };
-  }, [title]); // title 값이 변경될 때마다 타임아웃 재설정
+  }, [title]);
 
   useEffect(() => {
     fetchData();

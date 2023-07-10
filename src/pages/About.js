@@ -122,13 +122,6 @@ const About = () => {
                     </span>
                   </li>
                 </ul>
-
-                <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
-                 .
-                </h2>
-                <p className="mt-6">
-      .
-                </p>
               </div>
             </div>
           </div>
