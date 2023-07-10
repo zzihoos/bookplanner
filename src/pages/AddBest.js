@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Header from "../components/Header";
 import "../scss/addbest.scss";
 
@@ -20,7 +20,8 @@ const AddBest = () => {
   const [del, setDel] = useState(0);
   const [isbn, setIsbn] = useState("");
   const [total, setTotal] = useState(null);
-  
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setStart(moment(start).format("YYYY-MM-DD"));
@@ -94,6 +95,7 @@ const AddBest = () => {
     setFinish("");
     setDel("");
     setTotal();
+    navigate("/todo");
   };
 
   if (new Date(end) < new Date(start)) {

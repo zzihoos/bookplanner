@@ -12,6 +12,7 @@ const Todo = () => {
   const [todoList, setTodoList] = useState([]);
   const [todoListOrigin, setTodoListOrigin] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [isFixed, setIsFixed] = useState(false);
 
   useEffect(() => {
     todoDataList();
@@ -21,8 +22,8 @@ const Todo = () => {
     const result = await getTodo();
     setLevel(result.level);
     setProgress(result.count);
-    setTodoList(result.icategory || []);
-    setTodoListOrigin(result.icategory || []);
+    setTodoList(result.icategory);
+    setTodoListOrigin(result.icategory);
   };
 
   const handleFinish = () => {
@@ -40,13 +41,36 @@ const Todo = () => {
     setTodoList(initialTodoList);
   }, [todoListOrigin]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const threshold = 60;
+
+      if (scrollY > threshold && !isFixed) {
+        setIsFixed(true);
+      } else if (scrollY <= threshold && isFixed) {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isFixed]);
+
   const isAllCompleted = todoListOrigin.every(item => item.finish === 0);
+
+  const buttonClassName = isFixed
+    ? "fixed bottom-10 left-[15%] z-40"
+    : "absolute bottom-3 left-[6%] z-40";
 
   return (
     <>
       <Header />
       <div className="flex items-start justify-center w-full bg-gray-100">
-        <div className="mt-5 w-4/5 p-6 bg-white rounded-[8px] shadow relative min-w-[500px]">
+        <div className="mt-5 mb-8 w-4/5 p-6 bg-white rounded-[8px] shadow relative min-w-[500px]">
           <div className="mb-8">
             <h1 className="text-center mb-5 w-full text-2xl font-semibold text-gray-400">
               도서 목록
@@ -74,7 +98,7 @@ const Todo = () => {
               setLevel={setLevel}
               progress={progress}
             />
-            <div className="fixed bottom-0 left-[13%] z-40">
+            <div className={buttonClassName}>
               <Link to="/add">
                 <button className="w-16 h-16 text-3xl text-yellow-200 bg-slate-400 opacity-50 border rounded-full p-2">
                   <FontAwesomeIcon icon={faPlus} />

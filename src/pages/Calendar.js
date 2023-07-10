@@ -42,7 +42,7 @@ const Calendar = () => {
     navigate(`/edit/${itodo}`);
   };
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 pb-12">
       <Header />
 
       <div className="bg-white my-5 w-4/5 m-auto p-5 border rounded-[8px]">

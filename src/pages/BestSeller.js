@@ -6,7 +6,6 @@ import "../scss/bestseller.scss";
 
 const BestSeller = () => {
   const [bookData, setBookData] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
 
   const bookListData = async () => {
@@ -19,8 +18,6 @@ const BestSeller = () => {
   }, []);
 
   const handleBestAdd = item => {
-    setSelectedItem(item);
-
     navigate("/addbest", {
       state: {
         title: item.title,
@@ -32,10 +29,10 @@ const BestSeller = () => {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 pb-7">
       <Header />
-      <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded-[8px] mt-5 ">
-        <h2 className="text-2xl text-center p-10 text-gray-400 font-semibold">
+      <div className="flex flex-col justify-center w-4/5 bg-white py-5 m-auto border rounded-[8px] mt-5">
+        <h2 className="text-2xl text-center pt-10 text-gray-400 font-semibold">
           베스트 셀러 추천
         </h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
