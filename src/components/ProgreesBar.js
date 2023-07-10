@@ -1,24 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 const ExpProgressBar = ({ level, progress }) => {
-  // const [completedCount, setCompletedCount] = useState(0);
-  // const [progress, setProgress] = useState(0);
-
-  // useEffect(() => {
-  //   const completedTodos = todoListOrigin.filter(item => item.finish === 1);
-  //   const completedCount = completedTodos?.length % 10;
-  //   const updatedProgress = completedCount * 10;
-
-  //   setCompletedCount(completedCount);
-  //   setProgress(updatedProgress);
-
-  //   if (updatedProgress === 0 && completedTodos?.length > 0) {
-  //     // setLevel(level => level + 1);
-  //     setCompletedCount(0);
-  //     setProgress(0);
-  //   }
-  // }, [todoListOrigin]);
-
   return (
     <div className="flex justify-between items-center">
       <div className="text-center text-xl w-1/12 min-w-[50px]">Lv.{level}</div>
@@ -26,9 +8,10 @@ const ExpProgressBar = ({ level, progress }) => {
         <div
           className="h-6 absolute rounded"
           style={{
-            // width: `${progress > 100 ? progress - 100 : progress}%`,
             width: `${progress}%`,
             background: "black",
+            transition: "all",
+            transitionDuration: "0.5s",
           }}
         >
           <span className="relative z-10 text-center">{progress}%</span>

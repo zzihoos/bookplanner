@@ -23,34 +23,44 @@ form {
 }
 
 @media screen and (max-width: 1100px) {
-  .datewrap {
-    width: 54.5%;
-    transform: translateX(1%);
-    .date {
-      &:first-child {
-        margin-left: 9%;
-        transition: all 0.5s;
-      }
-      &:last-child {
-        margin-left: 9%;
-        transition: all 0.5s;
+  form {
+    .inputwrap {
+      font-size: 14px;
+      .datewrap {
+        width: 54.5%;
+        transform: translateX(1%);
+        .date {
+          &:first-child {
+            margin-left: 9%;
+            transition: all 0.5s;
+          }
+          &:last-child {
+            margin-left: 9%;
+            transition: all 0.5s;
+          }
+        }
       }
     }
   }
 }
 
 @media screen and (max-width: 900px) {
-  .datewrap {
-    width: 56.5%;
-    gap: 0 5%;
-    transition: all 0.5s;
-    .date {
-      &:first-child {
-        margin-left: 11%;
-      }
-      &:last-child {
-        margin-left: 2%;
+  form {
+    .inputwrap {
+      .datewrap {
+        width: 56.5%;
+        gap: 0 3%;
         transition: all 0.5s;
+        transform: translateX(3%);
+        .date {
+          &:first-child {
+            margin-left: 11%;
+          }
+          &:last-child {
+            margin-left: 2%;
+            transition: all 0.5s;
+          }
+        }
       }
     }
   }

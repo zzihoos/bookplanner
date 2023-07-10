@@ -49,15 +49,19 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
     return (
       <p className="relative z-10 text-sm pb-1 font-sans m-auto pr-7">
-        목표일까지 <span className="text-[#FFFFFF] text-lg font-semibold">{`${day}일`}</span> 남았습니다.
+        목표일까지{" "}
+        <span className="text-[#FFFFFF] text-lg font-semibold">{`${day}일`}</span>{" "}
+        남았습니다.
       </p>
-
     );
   };
 
   return (
     <>
-      <div className="relative p-3 w-[70%] m-auto">
+      <div
+        className="relative p-3 w-[70%] m-auto"
+        title="누르면 해당 상세페이지로 이동합니다"
+      >
         <input
           className="ml-3 absolute top-8 w-8 h-6 z-30"
           type="checkbox"
@@ -72,12 +76,11 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
           <span className="z-20 w-[70%] m-auto relative line-clamp-1 text-lg pt-1 font-sans font-semibold pl-14 text-[#322E25q]">
             {item.title}
           </span>
-          
+
           {getDDay(item)}
           <BookProgressBar item={item} />
         </div>
       </div>
-    
     </>
   );
 };

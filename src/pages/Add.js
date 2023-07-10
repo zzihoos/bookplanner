@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import Header from "../components/Header";
 import "../scss/add.scss";
-
 
 const Add = () => {
   const [cate, setCate] = useState();
@@ -24,7 +24,7 @@ const Add = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(true);
   const searchResultsRef = useRef(null);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     setStart(moment(start).format("YYYY-MM-DD"));
@@ -41,7 +41,7 @@ const Add = () => {
     };
 
     document.addEventListener("click", handleOutsideClick);
-  },[]);
+  }, []);
 
   useEffect(() => {
     const delay = 500; // 디바운싱 대기 시간 (밀리초)
@@ -131,6 +131,7 @@ const Add = () => {
     setBookmark("");
     setFinish("");
     setDel("");
+    navigate("/todo");
   };
 
   const handleTitleChange = event => {

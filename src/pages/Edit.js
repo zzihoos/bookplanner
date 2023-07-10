@@ -86,9 +86,9 @@ const Edit = () => {
     return (
       <>
         <Header />
-        <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
+        <div className="flex flex-col items-center justify-center w-full px-4 pb-64 text-gray-600 bg-gray-100 border rounded">
           <form className="w-3/5 border bg-white mt-5 rounded-[8px]">
-            <div className="flex item-center justify-center text-center py-5">
+            <div className="flex items-center justify-center text-center py-5 text-xl">
               <label className="w-[150px]">작성 날짜 : </label>
               <input
                 type="text"
@@ -97,7 +97,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">책 제목 : </label>
               <input
                 type="text"
@@ -106,7 +106,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">지은이 : </label>
               <input
                 type="text"
@@ -115,7 +115,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">출판사 : </label>
               <input
                 type="text"
@@ -124,7 +124,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">날짜 : </label>
               <div className="datewrap flex justify-between">
                 <input
@@ -143,7 +143,7 @@ const Edit = () => {
                 />
               </div>
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">메모 : </label>
               <input
                 type="text"
@@ -153,7 +153,7 @@ const Edit = () => {
                 onChange={e => handleMemoChange(e)}
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">책갈피 : </label>
               <input
                 type="text"
@@ -162,7 +162,7 @@ const Edit = () => {
                 onChange={e => handleBookmark(e)}
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <label className="w-[150px]">완료 유무 : </label>
               <input
                 type="text"
@@ -173,7 +173,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl">
               <input
                 type="hidden"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
@@ -204,9 +204,9 @@ const Edit = () => {
     return (
       <>
         <Header />
-        <div className="flex flex-col items-center justify-center w-full mb-2 px-4 py-1 text-gray-600 bg-gray-100 border rounded">
+        <div className="flex flex-col items-center justify-center w-full px-4 pb-64 text-gray-600 bg-gray-100 border rounded">
           <form className="w-3/5 border bg-white mt-5 rounded-[8px]">
-            <div className="flex item-center justify-center text-center py-5">
+            <div className="flex items-center justify-center text-center py-5 text-xl inputwrap">
               <label className="w-[150px]">작성 날짜 : </label>
               <input
                 type="text"
@@ -215,7 +215,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">책 제목 : </label>
               <input
                 type="text"
@@ -224,7 +224,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">지은이 : </label>
               <input
                 type="text"
@@ -233,7 +233,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">출판사 : </label>
               <input
                 type="text"
@@ -242,7 +242,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">날짜 : </label>
               <div className="datewrap flex justify-between">
                 <input
@@ -259,7 +259,7 @@ const Edit = () => {
                 />
               </div>
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">메모 : </label>
               <input
                 type="text"
@@ -268,7 +268,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">책갈피 : </label>
               <input
                 type="text"
@@ -277,7 +277,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <label className="w-[150px]">완료 유무 : </label>
               <input
                 type="text"
@@ -286,7 +286,7 @@ const Edit = () => {
                 readOnly
               />
             </div>
-            <div className="flex item-center justify-center text-center pb-5">
+            <div className="flex items-center justify-center text-center pb-5 text-xl inputwrap">
               <input
                 type="hidden"
                 className="w-2/4 px-3 py-2 ml-10 text-gray-500 bg-gray-200 border rounded shadow text-center"
