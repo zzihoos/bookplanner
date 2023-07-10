@@ -1,15 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BookProgressBar } from "./ProgreesBar";
 
 const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
-  const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsShown(true);
-  }, []);
 
   const handleCompleteChange = async _itodo => {
     try {
@@ -23,13 +18,20 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
         return todoItem;
       });
 
+      const filteredTodoList = updatedTodoList.filter(
+        todoItem => todoItem.itodo !== _itodo,
+      );
+
+      const updatedTodo = updatedTodoList.find(
+        todoItem => todoItem.itodo === _itodo,
+      );
+
       await axios.patch("/api/todo", {
         itodo: _itodo,
-        finish: updatedTodoList.find(todoItem => todoItem.itodo === _itodo)
-          .finish,
+        finish: updatedTodo.finish,
       });
 
-      setTodoList(updatedTodoList);
+      setTodoList(filteredTodoList);
       await todoDataList();
     } catch (error) {
       console.error("데이터 전송에 실패했습니다.", error);
@@ -57,25 +59,21 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
   return (
     <>
       <div
-        className={`relative p-3 w-[70%] m-auto ${isShown ? "shown" : ""}`}
+        className="relative p-3 w-[70%] m-auto"
         title="누르면 해당 상세페이지로 이동합니다"
       >
         <input
-          className={`ml-3 absolute top-8 w-8 h-6 z-30 transition-all duration-300 ${
-            isShown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-          }`}
+          className="ml-3 absolute top-8 w-8 h-6 z-30"
           type="checkbox"
           defaultChecked={item.finish === 1}
           onChange={() => handleCompleteChange(item.itodo)}
         />
         <div
-          className={`w-[100%] h-16 flex text-center text-xl rounded cursor-pointer relative overflow-hidden transition-all duration-300 ${
-            isShown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-          }`}
+          className={`w-[100%] h-16 flex text-center text-xl rounded cursor-pointer relative overflow-hidden`}
           style={{ background: `${item.color}` }}
           onClick={handleNavigate}
         >
-          <span className="z-20 w-[70%] m-auto relative line-clamp-1 text-lg pt-1 font-sans font-semibold pl-14 text-[#322E25]">
+          <span className="z-20 w-[70%] m-auto relative line-clamp-1 text-lg pt-1 font-sans font-semibold pl-14 text-[#322E25q]">
             {item.title}
           </span>
 
