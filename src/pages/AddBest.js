@@ -9,7 +9,7 @@ import "../scss/addbest.scss";
 
 const AddBest = () => {
   const [cate, setCate] = useState(11);
-  const [start, setStart] = useState(new Date);
+  const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -78,7 +78,7 @@ const AddBest = () => {
     };
 
     try {
-      const res = await axios.post("/api/plan/Todolist", formData);
+      const res = await axios.post("/api/plan/todolist", formData);
       console.log(res.data);
     } catch (error) {
       console.log(error);
