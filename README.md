@@ -10,6 +10,7 @@
 ## :books: 활용 모듈
 
 - <img src="https://img.shields.io/badge/React-263238?style=flat&logo=React&logoColor=skyblue">
+- <img src="https://img.shields.io/badge/ReactRouter-CA4245?style=flat-the-badge&logo=reactrouter&logoColor=white">
 - <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=javascript&logoColor=white">
 - <img src="https://img.shields.io/badge/Sass-CC6699?style=flat&logo=sass&logoColor=white">
 - <img src="https://img.shields.io/badge/Fontawesome-528DD7?style=flat&logo=fontawesome&logoColor=white">
@@ -26,12 +27,11 @@
 ## :hatching_chick: 팀원 소개 및 역할
 
 - Frontend
-  팀장 : 신지호(캘린더페이지, 작성 및 등록페이지, 어바웃페이지, 인트로페이지)
-  팀원 : 손용수(메인페이지, 상세페이지, 베스트셀러페이지, notfound페이지)
+  - 팀장 : 신지호(캘린더페이지, 작성 및 등록페이지, 어바웃페이지, 인트로페이지)
+  - 팀원 : 손용수(메인페이지, 상세페이지, 베스트셀러페이지, notfound페이지)
 - Backend
-  팀장 : 김다율(todolist작성페이지, 검색기능)
-  팀원 : 황주은(캘린더페이지, 베스트셀러페이지)
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서영기(메인페이지, 상세페이지, 수정/삭제)
+  - 팀장 : 김다율(todolist작성페이지, 검색기능)
+  - 팀원 : 황주은(캘린더페이지, 베스트셀러페이지)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서영기(메인페이지, 상세페이지, 수정/삭제)
 
 ## :heavy_check_mark: 주요기능
 
