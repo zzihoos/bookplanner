@@ -45,10 +45,11 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
     const now = new Date();
     const distance = setDate.getTime() - now.getTime();
     const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const dDay = day >= 0 ? day : 0;
     return (
       <p className="relative z-10 text-sm pb-1 font-sans m-auto pr-7">
-        목표일까지{" "}
-        <span className="text-[#FFFFFF] text-lg font-semibold">{`${day}일`}</span>{" "}
+        목표일까지
+        <span className="text-[#FFFFFF] text-lg font-semibold">{` ${dDay}일 `}</span>
         남았습니다.
       </p>
     );
