@@ -44,7 +44,7 @@ const Add = () => {
   }, []);
 
   useEffect(() => {
-    const delay = 500;
+    const delay = 300;
 
     const timeoutId = setTimeout(() => {
       setDebouncedTitle(title);
