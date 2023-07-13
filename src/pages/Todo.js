@@ -18,24 +18,6 @@ const Todo = () => {
     todoDataList();
   }, []);
 
-  const todoDataList = async () => {
-    const result = await getTodo();
-    setLevel(result.level);
-    setProgress(result.count);
-    setTodoList(result.icategory);
-    setTodoListOrigin(result.icategory);
-  };
-
-  const handleFinish = () => {
-    const updatedTodoList = todoListOrigin.filter(item => item.finish === 1);
-    setTodoList(updatedTodoList);
-  };
-
-  const handleNotFinish = () => {
-    const updatedTodoList = todoListOrigin.filter(item => item.finish === 0);
-    setTodoList(updatedTodoList);
-  };
-
   useEffect(() => {
     const initialTodoList = todoListOrigin.filter(item => item.finish === 0);
     setTodoList(initialTodoList);
@@ -59,6 +41,24 @@ const Todo = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isFixed]);
+
+  const todoDataList = async () => {
+    const result = await getTodo();
+    setLevel(result.level);
+    setProgress(result.count);
+    setTodoList(result.icategory);
+    setTodoListOrigin(result.icategory);
+  };
+
+  const handleFinish = () => {
+    const updatedTodoList = todoListOrigin.filter(item => item.finish === 1);
+    setTodoList(updatedTodoList);
+  };
+
+  const handleNotFinish = () => {
+    const updatedTodoList = todoListOrigin.filter(item => item.finish === 0);
+    setTodoList(updatedTodoList);
+  };
 
   const isAllCompleted = todoListOrigin.every(item => item.finish === 0);
 

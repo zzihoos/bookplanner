@@ -31,8 +31,7 @@
   - 팀원 : 손용수(메인페이지, 상세페이지, 베스트셀러페이지, notfound페이지)
 - Backend
   - 팀장 : 김다율(todolist작성페이지, 검색기능)
-  - 팀원 : 황주은(캘린더페이지, 베스트셀러페이지)<br>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서영기(메인페이지, 상세페이지, 수정/삭제)
+  - 팀원 : 황주은(캘린더페이지, 베스트셀러페이지)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서영기(메인페이지, 상세페이지, 수정/삭제)
 
 ## :heavy_check_mark: 주요기능
 
