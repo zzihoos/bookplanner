@@ -37,36 +37,32 @@ const BestSeller = () => {
         </h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
           {bookData.map((item, index) => {
-            if (index < 6) {
-              return (
-                <div
-                  className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded cursor-pointer info"
-                  key={index}
-                  onClick={() => handleBestAdd(item)}
-                  title="해당 정보를 누르면 책 등록페이지로 이동합니다"
-                >
-                  <div className="w-2/4 h-64 imgbox">
-                    <img src={item.cover} alt="" className="w-full h-full" />
-                  </div>
-                  <ul className="flex flex-col p-5 justify-center items-center">
-                    <li className="py-2 text-xl font-bold line-clamp-1 leading-10">
-                      {item.title}
-                    </li>
-                    <li className="py-2 text-[#626262] line-clamp-1 leading-8">
-                      {item.categoryName}
-                    </li>
-                    <li className="py-2 text-[#626262]">
-                      {item.author} / {item.publisher} / {item.pubDate}
-                    </li>
-                    <li className="py-2 text-[#626262] line-clamp-3 leading-8">
-                      {item.description || ""}
-                    </li>
-                  </ul>
+            return (
+              <div
+                className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded cursor-pointer info"
+                key={index}
+                onClick={() => handleBestAdd(item)}
+                title="해당 정보를 누르면 책 등록페이지로 이동합니다"
+              >
+                <div className="w-2/4 h-64 imgbox">
+                  <img src={item.cover} alt="" className="w-full h-full" />
                 </div>
-              );
-            } else {
-              return null;
-            }
+                <ul className="flex flex-col p-5 justify-center items-center">
+                  <li className="py-2 text-xl font-bold line-clamp-1 leading-10">
+                    {item.title}
+                  </li>
+                  <li className="py-2 text-[#626262] line-clamp-1 leading-8">
+                    {item.categoryName}
+                  </li>
+                  <li className="py-2 text-[#626262]">
+                    {item.author} / {item.publisher} / {item.pubDate}
+                  </li>
+                  <li className="py-2 text-[#626262] line-clamp-3 leading-8">
+                    {item.description || ""}
+                  </li>
+                </ul>
+              </div>
+            );
           })}
         </div>
       </div>
