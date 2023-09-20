@@ -1,0 +1,84 @@
+{
+  "level": 2,
+  "count": 0,
+  "icategory": [
+    {
+      "cate_name": "문학",
+      "itodo": 175,
+      "title": "(초판본) 허준 소설선 ",
+      "bookmark": 0,
+      "totalpage": null,
+      "del": 0,
+      "finish": 0,
+      "start": "2023-07-13",
+      "end": "2023-07-31",
+      "color": "#D6C635 ",
+      "isbn": "9791130454429"
+    },
+    {
+      "cate_name": "미분류",
+      "itodo": 169,
+      "title": "깨끗하고 건강하게 (세이펜 적용) - 생활안전 | 위생안전",
+      "bookmark": 0,
+      "totalpage": null,
+      "del": 0,
+      "finish": 1,
+      "start": "2023-07-13",
+      "end": "2023-07-21",
+      "color": "#008080",
+      "isbn": "9788967610401"
+    },
+    {
+      "cate_name": "미분류",
+      "itodo": 170,
+      "title": "문학으로 읽는 레위기",
+      "bookmark": 0,
+      "totalpage": null,
+      "del": 0,
+      "finish": 0,
+      "start": "2023-07-13",
+      "end": "2023-07-14",
+      "color": "#008080",
+      "isbn": "9791189607760"
+    },
+    {
+      "cate_name": "사회과학",
+      "itodo": 176,
+      "title": "교육철학 및 교육사",
+      "bookmark": 0,
+      "totalpage": "342",
+      "del": 0,
+      "finish": 0,
+      "start": "2023-07-13",
+      "end": "2023-07-19",
+      "color": "#76F0B6",
+      "isbn": "9791188076161"
+    },
+    {
+      "cate_name": "역사",
+      "itodo": 174,
+      "title": "특별한공부 사회 - 역사 심화편 4",
+      "bookmark": 0,
+      "totalpage": null,
+      "del": 0,
+      "finish": 0,
+      "start": "2023-07-13",
+      "end": "2023-07-26",
+      "color": "#7E7096 ",
+      "isbn": "9788963892061"
+    },
+    {
+      "cate_name": "철학",
+      "itodo": 178,
+      "title": "알아 두면 꿀이 되는 군대 잡지식 ",
+      "bookmark": 0,
+      "totalpage": null,
+      "del": 0,
+      "finish": 0,
+      "start": "2023-07-13",
+      "end": "2023-07-22",
+      "color": "#F8A5A5 ",
+      "isbn": "9791163472148"
+    }
+  ]
+}

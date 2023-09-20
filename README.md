@@ -2,9 +2,12 @@
 
 ### 사용자 도서일정 관리 및 기록
 
+## 시연영상
+![chrome_MayNCmluLh](https://github.com/returnys/clone-anychem/assets/130682309/e5f0dc87-195d-4d0d-8700-67c3c71e81dc)
+
 ## :floppy_disk: 프로젝트 정보
 
-- [Notion](https://https://www.notion.so/BOOK-PLANNER-906e3289681445399adeffbf1951215a?pvs=4)
+- [Notion](https://enshrined-rosemary-d4a.notion.site/BOOK-PLANNER-906e3289681445399adeffbf1951215a?pvs=4)
 - [Figma](https://www.figma.com/file/M5v9EPgpAVd0XVuc6VQhaI/Front-Figma?type=design&node-id=0%3A1&mode=design&t=0vKCEUWXKbLIx4hO-1)
 
 ## :books: 활용 모듈
