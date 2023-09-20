@@ -4,7 +4,7 @@
 
 ## :floppy_disk: 프로젝트 정보
 
-- [Notion](https://enshrined-rosemary-d4a.notion.site/BOOK-PLANNER-906e3289681445399adeffbf1951215a?pvs=4)
+- [Notion](https://concrete-scallion-31d.notion.site/BOOK-PLANNER-0bc49ab88fe94924ad5079f2ae6ba88a?pvs=4)
 - [Figma](https://www.figma.com/file/M5v9EPgpAVd0XVuc6VQhaI/Front-Figma?type=design&node-id=0%3A1&mode=design&t=0vKCEUWXKbLIx4hO-1)
 
 ## :books: 활용 모듈
