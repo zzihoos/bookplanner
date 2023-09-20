@@ -12,7 +12,7 @@ const BestSeller = () => {
     const result = await getBest();
     setBookData(result);
   };
-
+console.log(bookData)
   useEffect(() => {
     bookListData();
   }, []);
