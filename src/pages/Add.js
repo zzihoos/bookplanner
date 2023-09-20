@@ -61,7 +61,7 @@ const Add = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`/api/plan/search?str=${debouncedTitle}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/plan/search?str=${debouncedTitle}`);
       const data = res.data;
       const transformedData = transformData(data);
       setSearchResults(transformedData);
@@ -114,7 +114,7 @@ const Add = () => {
     };
 
     try {
-      const res = await axios.post("/api/plan/todolist", formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/plan/todolist`, formData);
       console.log(res.data);
     } catch (error) {
       console.log(error);

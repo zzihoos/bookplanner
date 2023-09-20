@@ -3,7 +3,7 @@ import axios from "axios";
 // 투두 페이지 get
 export const getTodo = async () => {
   try {
-    const res = await axios.get("/api/todo");
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/todo`);
     const result = res.data;
     return result;
   } catch (error) {
@@ -31,7 +31,7 @@ export const getTodo = async () => {
 // 편집 페이지 get
 export const getEdit = async _id => {
   try {
-    const res = await axios.get(`/api/todo/${_id}`);
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/todo/${_id}`);
     const result = res.data;
     return result;
   } catch (error) {
@@ -53,7 +53,7 @@ export const getEdit = async _id => {
 // 베스트셀러 페이지 get
 export const getBest = async () => {
   try {
-    const res = await axios.get("/api/aladinbestseller");
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/aladinbestseller`);
     const result = res.data;
     return result;
   } catch (error) {
@@ -94,7 +94,7 @@ export const getBest = async () => {
 // 에딧 페이지 patch
 export const patchEdit = async (startDay, endDay, memo, bookmark, itodo) => {
   try {
-    const res = await axios.patch(`/api/todo/${itodo}`, {
+    const res = await axios.patch(`${process.env.REACT_APP_API_URL}/api/todo/${itodo}`, {
       start: startDay,
       end: endDay,
       memo: memo,
@@ -111,7 +111,7 @@ export const patchEdit = async (startDay, endDay, memo, bookmark, itodo) => {
 // 투두 Delete
 export const deleteTodo = async _id => {
   try {
-    const res = await axios.delete(`/api/todo/${_id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/todo/${_id}`);
     const result = res.data;
     console.log(result);
   } catch (error) {

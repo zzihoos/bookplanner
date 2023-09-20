@@ -78,7 +78,7 @@ const AddBest = () => {
     };
 
     try {
-      const res = await axios.post("/api/plan/todolist", formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/plan/todolist`, formData);
       console.log(res.data);
     } catch (error) {
       console.log(error);
