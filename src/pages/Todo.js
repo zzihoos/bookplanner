@@ -117,7 +117,7 @@ const Todo = () => {
                   todoDataList={todoDataList}
                 />
               ))
-            ) : todoList.length > 0 && todoListOrigin.length > 0 ? (
+            ) : todoList?.length > 0 && todoListOrigin?.length > 0 ? (
               todoList?.map(item => (
                 <ListItem
                   key={item.itodo}

@@ -216,7 +216,7 @@ const Add = () => {
             <FontAwesomeIcon icon={faMagnifyingGlass} className="searchicon" />
           </div>
 
-          {title !== "" && searchResults.length > 0 && showSearchResults && (
+          {title !== "" && searchResults?.length > 0 && showSearchResults && (
             <div className="absolute h-64 w-[62%] pl-[45px] flex justify-center text-center -translate-y-5">
               <ul
                 ref={searchResultsRef}
