@@ -222,7 +222,7 @@ const Add = () => {
                 ref={searchResultsRef}
                 className="block mb-1 w-[55%] text-gray-500 border rounded shadow overflow-auto"
               >
-                {searchResults.map((book, isbn) => (
+                {searchResults?.map((book, isbn) => (
                   <li
                     key={book.title + isbn}
                     onClick={() => handleTitleSelect(book.title)}

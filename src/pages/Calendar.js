@@ -29,7 +29,7 @@ const Calendar = () => {
   };
 
   const transformData = data => {
-    return data.map(event => ({
+    return data?.map(event => ({
       itodo: event.itodo,
       title: event.title,
       start: event.start,

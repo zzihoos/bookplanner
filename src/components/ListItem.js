@@ -13,7 +13,7 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
 
   const handleCompleteChange = async _itodo => {
     try {
-      const updatedTodoList = todoList.map(todoItem => {
+      const updatedTodoList = todoList?.map(todoItem => {
         if (todoItem.itodo === _itodo) {
           return {
             ...todoItem,

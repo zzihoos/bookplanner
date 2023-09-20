@@ -19,7 +19,7 @@ const Todo = () => {
   }, []);
 
   useEffect(() => {
-    const initialTodoList = todoListOrigin.filter(item => item.finish === 0);
+    const initialTodoList = todoListOrigin?.filter(item => item.finish === 0);
     setTodoList(initialTodoList);
   }, [todoListOrigin]);
 
@@ -51,16 +51,16 @@ const Todo = () => {
   };
 
   const handleFinish = () => {
-    const updatedTodoList = todoListOrigin.filter(item => item.finish === 1);
+    const updatedTodoList = todoListOrigin?.filter(item => item.finish === 1);
     setTodoList(updatedTodoList);
   };
 
   const handleNotFinish = () => {
-    const updatedTodoList = todoListOrigin.filter(item => item.finish === 0);
+    const updatedTodoList = todoListOrigin?.filter(item => item.finish === 0);
     setTodoList(updatedTodoList);
   };
 
-  const isAllCompleted = todoListOrigin.every(item => item.finish === 0);
+  const isAllCompleted = todoListOrigin?.every(item => item.finish === 0);
 
   const buttonClassName = isFixed
     ? "fixed bottom-10 left-[15%] z-40"
@@ -108,7 +108,7 @@ const Todo = () => {
           </div>
           <div>
             {isAllCompleted ? (
-              todoList.map(item => (
+              todoList?.map(item => (
                 <ListItem
                   key={item.itodo}
                   item={item}
@@ -118,7 +118,7 @@ const Todo = () => {
                 />
               ))
             ) : todoList.length > 0 && todoListOrigin.length > 0 ? (
-              todoList.map(item => (
+              todoList?.map(item => (
                 <ListItem
                   key={item.itodo}
                   item={item}
