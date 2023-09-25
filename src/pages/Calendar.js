@@ -15,7 +15,9 @@ const Calendar = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("api/calendar");
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/calendar`,
+      );
       const data = res.data;
       const transformedData = transformData(data);
       // console.log(data);
@@ -27,7 +29,7 @@ const Calendar = () => {
   };
 
   const transformData = data => {
-    return data.map(event => ({
+    return data?.map(event => ({
       itodo: event.itodo,
       title: event.title,
       start: event.start,

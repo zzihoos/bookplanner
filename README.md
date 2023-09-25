@@ -2,6 +2,9 @@
 
 ### 사용자 도서일정 관리 및 기록
 
+## :video_camera:시연영상
+![chrome_MayNCmluLh](https://github.com/returnys/clone-anychem/assets/130682309/e5f0dc87-195d-4d0d-8700-67c3c71e81dc)
+
 ## :floppy_disk: 프로젝트 정보
 
 - [Notion](https://concrete-scallion-31d.notion.site/BOOK-PLANNER-0bc49ab88fe94924ad5079f2ae6ba88a?pvs=4)

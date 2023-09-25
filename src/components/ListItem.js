@@ -13,7 +13,7 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
 
   const handleCompleteChange = async _itodo => {
     try {
-      const updatedTodoList = todoList.map(todoItem => {
+      const updatedTodoList = todoList?.map(todoItem => {
         if (todoItem.itodo === _itodo) {
           return {
             ...todoItem,
@@ -23,7 +23,7 @@ const ListItem = ({ item, todoList, setTodoList, todoDataList }) => {
         return todoItem;
       });
 
-      await axios.patch("/api/todo", {
+      await axios.patch(`${process.env.REACT_APP_API_URL}/api/todo`, {
         itodo: _itodo,
         finish: updatedTodoList.find(todoItem => todoItem.itodo === _itodo)
           .finish,

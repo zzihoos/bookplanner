@@ -12,7 +12,7 @@ const BestSeller = () => {
     const result = await getBest();
     setBookData(result);
   };
-
+console.log(bookData)
   useEffect(() => {
     bookListData();
   }, []);
@@ -36,7 +36,7 @@ const BestSeller = () => {
           베스트 셀러 추천
         </h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-4 px-5 w-full grid-controler">
-          {bookData.map((item, index) => {
+          {bookData?.map((item, index) => {
             return (
               <div
                 className="p-5 flex items-center w-full h-96 hover:bg-slate-200 rounded cursor-pointer info"

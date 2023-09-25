@@ -61,7 +61,7 @@ const Add = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`/api/plan/search?str=${debouncedTitle}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/plan/search?str=${debouncedTitle}`);
       const data = res.data;
       const transformedData = transformData(data);
       setSearchResults(transformedData);
@@ -114,7 +114,7 @@ const Add = () => {
     };
 
     try {
-      const res = await axios.post("/api/plan/todolist", formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/plan/todolist`, formData);
       console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -216,13 +216,13 @@ const Add = () => {
             <FontAwesomeIcon icon={faMagnifyingGlass} className="searchicon" />
           </div>
 
-          {title !== "" && searchResults.length > 0 && showSearchResults && (
+          {title !== "" && searchResults?.length > 0 && showSearchResults && (
             <div className="absolute h-64 w-[62%] pl-[45px] flex justify-center text-center -translate-y-5">
               <ul
                 ref={searchResultsRef}
                 className="block mb-1 w-[55%] text-gray-500 border rounded shadow overflow-auto"
               >
-                {searchResults.map((book, isbn) => (
+                {searchResults?.map((book, isbn) => (
                   <li
                     key={book.title + isbn}
                     onClick={() => handleTitleSelect(book.title)}
